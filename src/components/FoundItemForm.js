@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
-function LostItemForm() {
+function FoundItemForm() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
@@ -15,7 +15,8 @@ function LostItemForm() {
       title,
       description,
       category,
-      location
+      location,
+      isLost: false, // Indicate that it's a found item
     }
 
     // Send form data to the backend API for item creation
@@ -96,4 +97,4 @@ function LostItemForm() {
   );
 }
 
-export default LostItemForm;
+export default FoundItemForm;
