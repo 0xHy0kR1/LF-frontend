@@ -1,23 +1,24 @@
+import React from 'react';
 import './App.css';
-import { 
-  BrowserRouter, 
-  Routes, 
-  Route
-} from "react-router-dom";
-import FoundItems from './pages/FoundItems'
-import Home from './pages/Home'
-import ItemDetails from './pages/ItemDetails'
-import LostItems from './pages/LostItems'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import NavbarComponent from './components/common/NavbarComponent'; // Correct import path
+import Home from './components/pages/Home';
+// import LostItems from './components/pages/LostItems';
+// import FoundItems from './components/pages/FoundItems';
+// import ItemDetails from './components/pages/ItemDetails';
+// import Footer from './components/common/Footer';
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/lost" element={<LostItems />}></Route>
-        <Route path="/found" element={<FoundItems />}></Route>
-        <Route path="/item/:id" element={<ItemDetails />}></Route>
-      </Routes>
+      <NavbarComponent />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* <Route path="/lost" element={<LostItems />} /> */}
+          {/* <Route path="/found" element={<FoundItems />} /> */}
+          {/* <Route path="/item/:id" element={<ItemDetails />} /> */}
+        </Routes>
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }
