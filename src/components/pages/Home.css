@@ -1,0 +1,10 @@
+.top-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+.home-top-img{
+    width: 58vw;
+    height: 85vh;
+}
