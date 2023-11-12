@@ -1,0 +1,9 @@
+/* navbar background */
+.navbar-custom {
+    background-color: black;
+  }
+/* Navbar text color */
+  .navbar-custom .navbar-nav .nav-link {
+    color: white;
+  }
+  
