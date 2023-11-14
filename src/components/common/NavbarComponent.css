@@ -2,8 +2,41 @@
 .navbar-custom {
     background-color: black;
   }
+.nav-logo{
+  filter: invert(1);
+  width: 22px;
+  height: 22px;
+}
 /* Navbar text color */
-  .navbar-custom .navbar-nav .nav-link {
-    color: white;
-  }
-  
+.navbar-custom {
+  display: flex;
+  color: white;
+  z-index: 1; /* Ensure the text is above the pseudo-element */
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.nav-link {
+  width: 120px;
+  position: relative; /* Ensure the pseudo-element is positioned relative to the link */
+  color: white;
+}
+
+/* Underline effect */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px; /* Initial height of the underline */
+  background-color: white;
+  transition: width 0.3s ease-out; /* Adding a smooth transition effect on width */
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
