@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NavbarComponent from './components/common/NavbarComponent'; // Correct import path
 import Home from './components/pages/Home';
+import './index.css'
 // import LostItems from './components/pages/LostItems';
 // import FoundItems from './components/pages/FoundItems';
 // import ItemDetails from './components/pages/ItemDetails';
