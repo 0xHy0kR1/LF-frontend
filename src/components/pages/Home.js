@@ -1,59 +1,100 @@
-import React from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import home_top_right from "./../../assets/home_top_right.jpg"
-import card1 from "./../../assets/card1.jpg";
-import card2 from "./../../assets/card2.jpg";
-import card3 from "./../../assets/card3.jpg";
-import './Home.css';
+import React from "react";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import home_top_right from "./../../assets/home_top_right.png";
+import notification from "./../../assets/notification.png";
+import signup from "./../../assets/signup.png";
+import list_items from "./../../assets/list_items.png";
+import "./Home.css";
+import { TypeAnimation } from "react-type-animation";
 
 const Home = () => {
+
   return (
     <Container fluid>
-      <Row className='top-box'>
-        <Col>
-        <h2>Welcome to Lost & Found App</h2>
+      <Row className="top-box">
+        <Col className="mx-2">
+          <TypeAnimation
+            sequence={[
+              "Welcome to ReclaimHub",
+              1000,
+              "Create An Account",
+              1000,
+              "List Your Lost Items",
+              1000,
+              "Get Notified",
+              1000,
+            ]}
+            wrapper="span"
+            speed={50}
+            style={{ fontSize: "2em", display: "inline-block"  }}
+            repeat={Infinity}
+          />
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut
-            quam justo.
+            Find what's lost, and reunite with what matters most - where lost
+            items discover their way back home
           </p>
         </Col>
         <Col>
-        <img src={home_top_right} alt="home_top_right_img" className='home-top-img'/>
+          <img
+            src={home_top_right}
+            alt="home_top_right_img"
+            className="home-top-img"
+          />
         </Col>
       </Row>
       <Row>
         <Col>
-        <Card>
-          <Card.Img variant="top" src={card1} />
-          <Card.Body>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-          </Card.Body>
-        </Card>
+          <h2 className="how-work-head">HOW IT WORKS?</h2>
         </Col>
-        <Col>
-        <Card>
-          <Card.Img variant="top" src={card2} />
-          <Card.Body>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-          </Card.Body>
-        </Card>
+      </Row>
+      <Row className="card-section">
+        <Col className="card-box">
+          <Card className="card">
+            <Card.Img
+              variant="top"
+              src={signup}
+              className="card-img-container"
+            />
+            <Card.Body>
+              <Card.Title>Create an account</Card.Title>
+              <Card.Text>
+                Report your lost item and for that create an account
+              </Card.Text>
+              <a href="/" className="card-button">
+                <Button variant="primary">Sign up</Button>
+              </a>
+            </Card.Body>
+          </Card>
         </Col>
-        <Col>
-        <Card>
-          <Card.Img variant="top" src={card3} />
-          <Card.Body>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-          </Card.Body>
-        </Card>
+        <Col className="card-box">
+          <Card className="card">
+            <Card.Img
+              variant="top"
+              src={list_items}
+              className="card-img-container"
+            />
+            <Card.Body>
+              <Card.Title>List Lost/Found Item</Card.Title>
+              <Card.Text>
+                Our smart system finds potential matches for your lost item.
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col className="card-box">
+          <Card className="card">
+            <Card.Img
+              variant="top"
+              src={notification}
+              className="card-img-container"
+            />
+            <Card.Body>
+              <Card.Title>Get Notified</Card.Title>
+              <Card.Text>
+                Stay connected and get notified about potential matches.
+              </Card.Text>
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
     </Container>
