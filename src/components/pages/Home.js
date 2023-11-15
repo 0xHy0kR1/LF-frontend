@@ -6,6 +6,7 @@ import signup from "./../../assets/signup.png";
 import list_items from "./../../assets/list_items.png";
 import "./Home.css";
 import { TypeAnimation } from "react-type-animation";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 
@@ -60,9 +61,9 @@ const Home = () => {
               <Card.Text>
                 Report your lost item and for that create an account
               </Card.Text>
-              <a href="/" className="card-button">
-                <Button variant="primary">Sign up</Button>
-              </a>
+              <Link to="/Signup">
+                <Button className="card1-bottom-button" variant="success">Sign up</Button>
+              </Link>
             </Card.Body>
           </Card>
         </Col>
