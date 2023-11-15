@@ -75,3 +75,18 @@
     height: 100%;
     object-fit: cover; /* Ensure the image covers the container */
 }
+
+[data-theme="dark"] .card1-bottom-button{
+    background-color: white;
+    color: black;
+}
+
+[data-theme="light"] .card1-bottom-button{
+    background-color: black;
+    color: white;
+}
+
+.card1-bottom-button:hover{
+    background-color: #157347;
+    color: white;
+}
