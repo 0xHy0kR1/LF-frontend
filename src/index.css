@@ -2,12 +2,14 @@
   --body_background: white;
   --body_color: black;
   --link_color: navy;
+  --transition-duration: 0.3s;
 }
 
 [data-theme="dark"]{
-  --body_background: #17191e;
+  --body_background: #0a1823;
   --body_color: white;
   --link_color: cyan;
+  transition: background-color var(--transition-duration), color var(--transition-duration);
 }
 
 body {
@@ -19,6 +21,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--body_background);
   color: var(--body_color);
+  transition: background-color var(--transition-duration), color var(--transition-duration);
 }
 
 code {
