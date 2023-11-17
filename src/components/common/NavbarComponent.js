@@ -10,16 +10,16 @@ function NavbarComponent() {
 
 
   return (
-    <Navbar expand="lg" className={`navbar-dark navbar-custom `}>
-      <Container fluid>
-        <Nav className='ml-auto nav-collap'>
-          <Link to="/" className='nav-link'>Home</Link>
-          <Link to="/Signup" className='nav-link'>sign-up</Link>
-          <Link to="/Login" className='nav-link'>Login</Link>
-        </Nav>
-        <DarkMode/>
-      </Container>
-    </Navbar>
+    <Navbar bg="dark" data-bs-theme="dark">
+    <Container fluid >
+      <Nav className="me-auto">
+      <Link to="/" className='nav-link'>Home</Link>
+      <Link to="/Signup" className='nav-link'>sign-up</Link>
+      <Link to="/Login" className='nav-link'>Login</Link>
+      </Nav>
+      <DarkMode/>
+    </Container>
+  </Navbar>
   );
 }
 
