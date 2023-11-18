@@ -4,8 +4,10 @@ import Container from 'react-bootstrap/Container';
 import React from 'react';
 import './Signup.css'; 
 import top from "./../../assets/cred-top.png";
+import authService from './../services/authService';
 
 function Signup(props) {
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -16,26 +18,15 @@ function Signup(props) {
       password: e.target.password.value,
     };
 
-    // Send the form data to the backend
-    try{
-      const response = await fetch('http://localhost:5000/api/auth/createuser', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
+    // sign up the user using authService
+    const signupResult = await authService.registerUser(formData);
 
-      if(response.ok){
-        props.showAlert('success', 'Login successful');
-      }
-      else{
-        props.showAlert('danger', 'Login failed');
-      }
+    // Show the alert based on the signup result
+    if(signupResult.success) {
+      props.showAlert('success', signupResult.message);
+    } else{
+      props.showAlert('danger', signupResult.message);
     }
-  catch(error){
-    props.showAlert('danger', 'Login failed');
-  }
 }
   return (
     <Container className='signup-container'>
