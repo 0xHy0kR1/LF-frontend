@@ -4,11 +4,13 @@ import Container from 'react-bootstrap/Container';
 import React, {useState} from 'react';
 import './Login.css'; 
 import top from "./../../assets/cred-top.png";
+import authService from './../services/authService'
+import { useNavigate } from "react-router-dom";
 
 function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [alert, setAlert] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,28 +21,21 @@ function Login(props) {
       password: password,
     };
 
-    // Make a POST request to the backend
-    try{
-      const response = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
+    // Logged in the user using authService
+    const loginResult = await authService.loginUser(formData);
 
-      if(response.ok){
-        // Show success alert
-        props.showAlert('success', 'Login successful');
-      }
-      else{
-        // Show error alert
-        props.showAlert('danger', 'Login failed');
-      }
-    } catch(error){
-      console.error('Error: ' + error);
-      // Show error alert 
-      props.showAlert('danger', 'Login failed');
+    if(loginResult.success) {
+      // Store the token in localStorage
+      localStorage.setItem('authToken', loginResult.token);
+
+      // Show success alert
+      props.showAlert('success', loginResult.message);
+
+      // Redirect the user to Home page after successful login
+      navigate('/');
+    }else {
+      // Show error alert
+      props.showAlert('danger', loginResult.message);
     }
   }
 
