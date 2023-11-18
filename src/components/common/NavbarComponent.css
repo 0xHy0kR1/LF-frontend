@@ -40,3 +40,37 @@
   width: 100%;
 }
 
+.logout-button{
+  background-color: #dc3545;
+  width: 75px;
+  color: #cccfd1;
+  font-weight: bolder;
+  border: none;
+}
+
+[data-theme="dark"] .logout-button{
+  background-color: #60d17d;
+  width: 75px;
+  color: black;
+  font-weight: bolder;
+  border: none;
+}
+[data-theme="dark"] .logout-button:hover{
+  background-color: red;
+  width: 75px;
+  color: white;
+  font-weight: bolder;
+  border: none;
+}
+[data-theme="light"] .logout-button{
+  background-color: black;
+  width: 75px;
+  color: #cccfd1;
+  font-weight: bolder;
+}
+[data-theme="light"] .logout-button:hover{
+  background-color: red;
+  width: 75px;
+  color: #cccfd1;
+  font-weight: bolder;
+}
