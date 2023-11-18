@@ -10,6 +10,9 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
 
+  // Check if the user is logged in (based on the presence of authToken)
+  const isLoggedIn = !!localStorage.getItem('authToken');
+
   return (
     <Container fluid>
       <Row className="top-box">
@@ -61,9 +64,11 @@ const Home = () => {
               <Card.Text>
                 Report your lost item and for that create an account
               </Card.Text>
-              <Link to="/Signup">
-                <Button className="card1-bottom-button" variant="success">Sign up</Button>
-              </Link>
+              {isLoggedIn ? '': 
+                <Link to="/Signup">
+                  <Button className="card1-bottom-button" variant="success">Sign up</Button>
+                </Link>
+              }
             </Card.Body>
           </Card>
         </Col>
