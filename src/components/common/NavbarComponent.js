@@ -4,13 +4,16 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import './NavbarComponent.css';
 import DarkMode from './DarkMode/DarkMode';
-import { Link } from 'react-router-dom';
+import { Link, useLocation} from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
+import PostItemModal from "../forms/PostItemModal";
+import { useState } from 'react';
 
 function NavbarComponent() {
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Check if the user is logged in (based on the presence of authToken)
   const isLoggedIn = !!localStorage.getItem('authToken');
@@ -23,6 +26,15 @@ function NavbarComponent() {
     // Redirect the user to the login page
     navigate('/login');
   };
+
+  // State to manage modal visibility 
+  const [showModal, setShowModal] = useState(false);
+
+  // Function to show the modal 
+  const handleModalShow = () => setShowModal(true);
+
+  // Function to hide the modal
+  const handleModalClose = () => setShowModal(false);
 
   return (
     <Navbar bg="dark" data-bs-theme="dark">
@@ -41,6 +53,22 @@ function NavbarComponent() {
             </>
       )}
       </Nav>
+      { isLoggedIn && (location.pathname === '/lost' ) && (
+        <>
+          <PostItemModal
+            showModal={showModal}
+            handleModalShow={handleModalShow}
+            handleModalClose={handleModalClose}
+          />
+          <Button
+            variant='primary'
+            className="post-item-button"
+            onClick={handleModalShow}
+          >
+            Post Item
+          </Button>
+        </>
+      )}
       {isLoggedIn && (
         <Button variant='danger' className='logout-button' onClick={handleLogout}>Logout</Button>
       )}
