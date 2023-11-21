@@ -7,8 +7,8 @@ import './index.css'
 import Signup from './components/authentication/Signup';
 import Login from './components/authentication/Login';
 import Alert from './components/common/Alert'
-// import LostItems from './components/pages/LostItems';
-// import FoundItems from './components/pages/FoundItems';
+import LostItems from './components/pages/LostItems';
+import FoundItems from './components/pages/FoundItems';
 // import ItemDetails from './components/pages/ItemDetails';
 // import Footer from './components/common/Footer';
 
@@ -33,8 +33,8 @@ function App() {
           <Route path="/" element={<Home />} /> 
           <Route path="/Signup" element={<Signup showAlert={showAlert} />} /> // Pass showAlert function to Signup component
           <Route path="/Login" element={<Login showAlert={showAlert} />} />
-          {/* <Route path="/lost" element={<LostItems />} /> */}
-          {/* <Route path="/found" element={<FoundItems />} /> */}
+          <Route path="/lost" element={<LostItems showAlert={showAlert} />} />
+          <Route path="/found" element={<FoundItems />} />
           {/* <Route path="/item/:id" element={<ItemDetails />} /> */}
         </Routes>
       {/* <Footer /> */}
