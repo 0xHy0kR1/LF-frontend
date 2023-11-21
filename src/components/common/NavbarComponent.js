@@ -7,7 +7,7 @@ import DarkMode from './DarkMode/DarkMode';
 import { Link, useLocation} from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import PostItemModal from "../forms/PostItemModal";
+import PostItemModal from "../modal/PostItemModal";
 import { useState } from 'react';
 
 function NavbarComponent() {
@@ -41,17 +41,14 @@ function NavbarComponent() {
     <Container fluid >
       <Nav className="me-auto">
       <Link to="/" className='nav-link'>Home</Link>
-      {isLoggedIn ? (
-            <>
-              <Link to="/lost" className='nav-link'>Lost Items</Link>
-              <Link to="/found" className='nav-link'>Found Items</Link>
-            </>
-          ) : (
+      <Link to="/lost" className='nav-link'>Lost Items</Link>
+      <Link to="/found" className='nav-link'>Found Items</Link>
+      {isLoggedIn ? ('') : (
             <>
               <Link to="/Signup" className='nav-link'>sign-up</Link>
               <Link to="/Login" className='nav-link'>Login</Link>
             </>
-      )}
+          )}
       </Nav>
       { isLoggedIn && (location.pathname === '/lost' ) && (
         <>
@@ -69,6 +66,7 @@ function NavbarComponent() {
           </Button>
         </>
       )}
+      
       {isLoggedIn && (
         <Button variant='danger' className='logout-button' onClick={handleLogout}>Logout</Button>
       )}
