@@ -1,0 +1,125 @@
+// Define the base URL for your API
+const BASE_URL = 'http://localhost:5000/api/lost-items';
+
+// Function to create a new lost item
+export const createLostItem = async (data) => {
+    try{
+        const response = await fetch(`{BASE_URL}/create`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('authToken')}`, // Including the authentication token in the header
+            },
+            body: JSON.stringify(data),
+        });
+
+        if(response.ok){
+            return {success: true, message: 'Item created successfully'};
+        } else{
+            return {success: false, message: 'Item creation failed'};
+        }
+    } catch(error){
+        return {success: false, message: 'Item creation failed'};
+    }
+}
+
+// Function to get a list of all lost items
+export const getLostItems = async () => {
+    try{
+        const response = await fetch(`${BASE_URL}/list`);
+        const data = await response.json();
+
+        if(response.ok){
+            return { success: true, message: 'Item retrieved successfully', lostItems: data.lostItems};
+        } else{
+            return { success: false, message: 'Failed to retrieve lost items'};
+        }
+    } catch(error){
+        return { success: false, message: 'Failed to retrieve lost items'};
+    }
+}
+
+// Function to update a specific lost item
+export const updateLostItem = async (itemId, data) => {
+    try{
+        const response = await fetch(`${BASE_URL}/update/${itemId}`,{
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('authToken')} ` // Include the authentication token in the header
+            },
+            body: JSON.stringify(data),
+        });
+
+        if(response.ok){
+            return { success: true, message: 'Lost item updated successfully' };
+        } else{
+            return { success: false, message: 'Failed to update the lost item' };
+        }
+    } catch(error){
+        return { success: false, message: 'Failed to update the lost item' };
+    }
+}
+
+// Function to delete the lost item
+export const deleteLostItem = async (itemId) => {
+    try{
+        const response = await fetch(`${BASE_URL}/delete/${itemId}`,{
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('authToken')}`, // Include the authentication token in the header
+            }
+        });
+
+        if(response.ok){
+            return { success: true, message: 'Lost item deleted successfully'};
+        } else{
+            return { success: false, message: 'Failed to delete the lost item'};
+        }
+
+    } catch(error){
+        return { success: false, message: 'Failed to delete the lost item'};
+    }
+}
+
+// Function to view a specific lost item
+export const viewLostItem = async (itemId) => {
+    try{
+        const response = await fetch(`${BASE_URL}/view/${itemId}`,{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('authToken')}`, // Include the authentication token in the header
+            },
+        });
+
+        if(response.ok) {
+            const responseData = await response.json();
+            return { success: true, message: 'Lost item retrieved successfully', data: responseData };
+        } else{
+            return { success: false, message: 'Failed to retrieve the lost item'};
+        }
+    } catch(error){
+        return { success: false, message: 'Failed to retrieve the lost item'};
+    }
+}
+
+// Function to submit the answer to the security question for a specific lost item
+export const answerSecurityQuestion = async (itemId, data) => {
+    try{
+        const response = await fetch(`${BASE_URL}/answerSecurityQuestion/${itemId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if(response.ok){
+            const responseData = await response.json();
+            return { success: true, message: 'Answer submitted successfully', data: responseData };
+        } else {
+            return { success: false, message: 'Failed to submit the answer'};
+        }
+    } catch (error){
+        return { success: false, message: 'Failed to submit the answer'}
+    }
+}
