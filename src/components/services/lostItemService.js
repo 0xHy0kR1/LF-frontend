@@ -129,9 +129,9 @@ export const answerSecurityQuestion = async (itemId, data) => {
 
         if(response.ok){
             const responseData = await response.json();
-            return { success: true, message: 'Answer submitted successfully', data: responseData };
+            return { success: true, message: 'Incorrect answer', data: responseData };
         } else {
-            return { success: false, message: 'Failed to submit the answer'};
+            return { success: false, message: 'Incorrect answer'};
         }
     } catch (error){
         return { success: false, message: 'Failed to submit the answer'}
