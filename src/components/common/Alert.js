@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import './../../App.css'
 function Alert(props) {
   const [show, setShow] = useState(true);
   const capitalized = (word) => {
@@ -14,7 +14,7 @@ function Alert(props) {
   }
 
   return (
-    <div style={{height:'50px'}}>
+    <div className='fixed-top-alert'>
       {props.alert && <div className={`alert alert-${props.alert.type} alert-dismissible fade show`} role="alert">
         <strong>{capitalized(props.alert.type)}</strong>: {props.alert.msg}
       </div>}
