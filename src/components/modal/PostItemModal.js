@@ -3,7 +3,6 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { createLostItem } from './../services/lostItemService';
-
 function PostItemModal(props) {
 
   const [ selectedFile, setSelectedFile ] = useState(null);
@@ -63,11 +62,15 @@ function PostItemModal(props) {
       console.log('Item created successfully');
 
       // Close the modal
+      props.handleModalClose();
+
+      // Fetch and set the list of lost items after creating a new item
+      props.fetchLostItems();
+
     } else {
       // Handle the case where item creation failed
       console.error('Item creation failed');
     }
-    props.handleModalClose();
   };
 
   return (
