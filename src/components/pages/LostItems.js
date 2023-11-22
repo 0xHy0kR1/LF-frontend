@@ -6,6 +6,7 @@ import { getLostItems, deleteLostItem, answerSecurityQuestion, viewLostItem } fr
 import SecurityQuestionModal from './../modal/SecurityQuestionModal';
 import './LostItems.css';
 import PostItemModal from "../modal/PostItemModal";
+import Spinner from './../common/Spinner';
 
 const LostItems = (props) => {
 
@@ -14,6 +15,8 @@ const LostItems = (props) => {
   const [showSecurityQuestionModal, setShowSecurityQuestionModal] = useState(false);
   const [showEmail, setShowEmail] = useState(false);
   const [userEmail, setUserEmail] = useState('');
+  const [securityQuestion, setSecurityQuestion] = useState('');
+  const [loading, setLoading] = useState(true);
 
   // State to manage modal visibility 
   const [showModal, setShowModal] = useState(false);
@@ -26,10 +29,12 @@ const LostItems = (props) => {
 
   const fetchLostItems = async () => {
     try{
+        setLoading(true); // Set loading to true when fetching starts
         const response = await getLostItems();
         const items = response.lostItems; // Access the lostItems property
         setLostItems(items);
         console.log(items);
+        setLoading(false); // Set loading to false when fetching is complete
     } catch (error){
         console.error('Error fetching lost items:', error);
         props.showAlert('danger', 'Error fetching lost items');
@@ -59,13 +64,15 @@ const LostItems = (props) => {
   }
 
   const handleViewDetails = async (itemId) => {
+    let itemDetails;
     try{
-        const itemDetails = await viewLostItem(itemId);
+        itemDetails = await viewLostItem(itemId);
         // Display item details
         console.log('Item details:', itemDetails);
-        if(itemDetails.securityQuestion){
+        if(itemDetails.data.securityQuestion){
           setShowEmail(false);
           setSelectedItemId(itemId);
+          setSecurityQuestion(itemDetails.data.securityQuestion);
           setShowSecurityQuestionModal(true);
         } else{
           setShowSecurityQuestionModal(false);
@@ -79,14 +86,16 @@ const LostItems = (props) => {
   const handleAnswerSecurityQuestion = async (itemId, answer) => {
     try{
       const result = await answerSecurityQuestion(itemId, { securityQuestion: { answer}});
-      console.log("Security question answer result");
-
-      if(result.email){
-        setUserEmail(result.email);
+      if(result.data && result.data.email){
+        setUserEmail(result.data.email);
         setShowEmail(true);
         setShowSecurityQuestionModal(false);
+      }else {
+        setShowSecurityQuestionModal(false);
+        props.showAlert('danger', result.message || 'Incorrect answer');
       }
     } catch(error){
+      props.showAlert('danger', "Incorrect answer");
       console.error('Error answering security question', error);
     }
   }
@@ -100,32 +109,33 @@ const LostItems = (props) => {
   }
   return (
      <div>
-      <h2>Lost Items</h2>
+      <h2 className='text-center'>Lost Items</h2>
       <PostItemModal
             showModal={showModal}
             handleModalShow={handleModalShow}
             handleModalClose={handleModalClose}
             fetchLostItems={fetchLostItems}
           />
-          <Button
+      <Button
             variant='primary'
             className="post-item-button"
             onClick={handleModalShow}
           >
             Post Item
       </Button>
+      {loading && <Spinner />} {/* Render the spinner while loading */}
       <div className="cards">
-        {lostItems.map((item) => (
+        {!loading && lostItems.map((item) => (
           <Card key={item._id} className="custom-card" >
             <Card.Img className="card-image" variant="top" src={item.imageUrl} alt={item.title} />
-            <Card.Body>
+            <Card.Body className='card-body'>
               <Card.Title>{item.title}</Card.Title>
               <Card.Text>Description: {item.description}</Card.Text>
               <Card.Text>Category: {item.category}</Card.Text>
               <Card.Text>Location: {item.location}</Card.Text>
               {item.securityQuestion && (
                 <Button variant="info" onClick={() => handleViewDetails(item._id)}>
-                  Answer Security Question
+                  View Email of author
                 </Button>
               )}
             </Card.Body>
@@ -134,11 +144,14 @@ const LostItems = (props) => {
       </div>
 
       {/* Modal for answering security question */}
-      <SecurityQuestionModal
-        show={showSecurityQuestionModal}
-        handleClose={handleCloseSecurityQuestionModal}
-        onSubmit={(answer) => handleAnswerSecurityQuestion(selectedItemId, answer)}
-      />
+      {showSecurityQuestionModal && securityQuestion && ( // Check if itemDetails is defined
+        <SecurityQuestionModal
+          show={showSecurityQuestionModal}
+          handleClose={handleCloseSecurityQuestionModal}
+          onSubmit={(answer) => handleAnswerSecurityQuestion(selectedItemId, answer)}
+          securityQuestion={securityQuestion}
+        />
+      )}
 
       {/* Modal for displaying the email */}
       <Modal show={showEmail} onHide={handleCloseEmailModal}>
