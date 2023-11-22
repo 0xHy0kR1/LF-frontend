@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import { createLostItem } from './../services/lostItemService';
 
 function PostItemModal(props) {
 
@@ -11,13 +12,63 @@ function PostItemModal(props) {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
+    console.log("Selected File: ", file);
   }
 
-  // Function to show the modal 
-  const handleModalShow = () => props.handleModalShow();
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    category: '',
+    location: '',
+    securityQuestion: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   // Function to hide the modal
-  const handleModalClose = () => props.handleModalClose();
+  const handleModalClose = async () => {
+    // Combine form data with selected file
+    const data = new FormData();
+    console.log("form data title: ",formData.title);
+    data.append('title', formData.title);
+    data.append('description', formData.description);
+    data.append('category', formData.category);
+    data.append('location', formData.location);
+    data.append('image', selectedFile);
+
+    // Add security question and answer as an object
+    const securityData = {
+      question: formData.securityQuestion,
+      answer: formData.securityAnswer,
+    };
+    
+    // Convert the securityData object to a JSON string
+    const securityJson = JSON.stringify(securityData);
+
+    // Append the JSON string to the form data
+    data.append('securityQuestion', securityJson);
+
+    // Call the createLostItem function from your service
+    const result = await createLostItem(data);
+
+    // Check if the item creation was successful
+    if (result.success) {
+      // Optionally, you can perform any actions needed upon success
+      console.log('Item created successfully');
+
+      // Close the modal
+    } else {
+      // Handle the case where item creation failed
+      console.error('Item creation failed');
+    }
+    props.handleModalClose();
+  };
 
   return (
     <>
@@ -28,12 +79,12 @@ function PostItemModal(props) {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> 
-              <Form.Control type="text" placeholder="Enter title" autoFocus />
+              <Form.Control type="text" placeholder="Enter title" autoFocus name="title" value={formData.title} onChange={handleInputChange}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> 
-              <Form.Control type="text" placeholder="Enter description" autoFocus />
+              <Form.Control type="text" placeholder="Enter description" autoFocus name="description" value={formData.description} onChange={handleInputChange}/>
             </Form.Group>
-            <Form.Select aria-label="Default select example">
+            <Form.Select aria-label="Default select example" name="category" value={formData.category} onChange={handleInputChange}>
               <option>Category</option>
               <option value="Electronics">Electronics</option>
               <option value="Clothing">Clothing</option>
@@ -50,13 +101,13 @@ function PostItemModal(props) {
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Control type="text" placeholder="location" />
+              <Form.Control type="text" placeholder="location" name="location" value={formData.location} onChange={handleInputChange}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> 
-              <Form.Control type="text" placeholder="Enter Security Question" autoFocus />
+              <Form.Control type="text" placeholder="Enter Security Question" autoFocus name="securityQuestion" value={formData.securityQuestion} onChange={handleInputChange}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> 
-              <Form.Control type="text" placeholder="Enter Security Answer" autoFocus />
+              <Form.Control type="text" placeholder="Enter Security Answer" autoFocus name="securityAnswer" value={formData.securityAnswer} onChange={handleInputChange}/>
             </Form.Group>
             <Form.Group controlId="formFileSm" className="mb-3">
                 <Form.Label>Choose Files</Form.Label>
