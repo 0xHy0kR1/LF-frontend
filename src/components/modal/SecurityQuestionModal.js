@@ -20,7 +20,7 @@ const SecurityQuestionModal = (props) => {
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formSecurityQuestion">
-            <Form.Label>Security Question</Form.Label>
+            <Form.Label>{props.securityQuestion}</Form.Label>
             <Form.Control type="text" placeholder="Enter your answer" value={answer} onChange={(e) => setAnswer(e.target.value)} />
           </Form.Group>
           <Button variant="primary" type="submit">
