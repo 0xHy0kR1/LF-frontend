@@ -3,22 +3,36 @@ const BASE_URL = 'http://localhost:5000/api/lost-items';
 
 // Function to create a new lost item
 export const createLostItem = async (data) => {
+    console.log(data);
     try{
-        const response = await fetch(`{BASE_URL}/create`, {
+        // Get the authentication token from local storage
+        const authToken = localStorage.getItem('authToken');
+
+        // Create a FormData object to handle the file upload
+        const formData = new FormData();
+        formData.append('image', data.get("image")); // Assuming your file input field is named 'image'
+        formData.append('title', data.get("title"));
+        formData.append('description', data.get("description"));
+        formData.append('category', data.get("category"));
+        formData.append('location', data.get("location"));
+        formData.append('securityQuestion', data.get("securityQuestion"));
+
+        const response = await fetch(`${BASE_URL}/create`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('authToken')}`, // Including the authentication token in the header
+                authToken: authToken, // Including the authentication token in the header
             },
-            body: JSON.stringify(data),
+            body: formData,
         });
 
         if(response.ok){
             return {success: true, message: 'Item created successfully'};
         } else{
+            console.log("inside else");
             return {success: false, message: 'Item creation failed'};
         }
     } catch(error){
+        console.log("inside catch");
         return {success: false, message: 'Item creation failed'};
     }
 }
@@ -46,7 +60,7 @@ export const updateLostItem = async (itemId, data) => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('authToken')} ` // Include the authentication token in the header
+                Authorization: `${localStorage.getItem('authToken')} ` // Include the authentication token in the header
             },
             body: JSON.stringify(data),
         });
