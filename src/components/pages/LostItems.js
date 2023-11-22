@@ -5,6 +5,8 @@ import Modal from 'react-bootstrap/Modal';
 import { getLostItems, deleteLostItem, answerSecurityQuestion, viewLostItem } from './../services/lostItemService';
 import SecurityQuestionModal from './../modal/SecurityQuestionModal';
 import './LostItems.css';
+import PostItemModal from "../modal/PostItemModal";
+
 const LostItems = (props) => {
 
   const [lostItems, setLostItems] = useState([]);
@@ -13,10 +15,14 @@ const LostItems = (props) => {
   const [showEmail, setShowEmail] = useState(false);
   const [userEmail, setUserEmail] = useState('');
 
-  useEffect(() => {
-    // Fetch and set the list of lost items when the component mounts
-    fetchLostItems();
-  }, []);
+  // State to manage modal visibility 
+  const [showModal, setShowModal] = useState(false);
+
+  // Function to show the modal 
+  const handleModalShow = () => setShowModal(true);
+
+  // Function to hide the modal
+  const handleModalClose = () => setShowModal(false);
 
   const fetchLostItems = async () => {
     try{
@@ -29,6 +35,11 @@ const LostItems = (props) => {
         props.showAlert('danger', 'Error fetching lost items');
     }
   };
+
+  useEffect(() => {
+    // Fetch and set the list of lost items when the component mounts
+    fetchLostItems();
+  }, []);
 
   const handleDeleteItem = async (itemId) => {
     try{
@@ -90,6 +101,19 @@ const LostItems = (props) => {
   return (
      <div>
       <h2>Lost Items</h2>
+      <PostItemModal
+            showModal={showModal}
+            handleModalShow={handleModalShow}
+            handleModalClose={handleModalClose}
+            fetchLostItems={fetchLostItems}
+          />
+          <Button
+            variant='primary'
+            className="post-item-button"
+            onClick={handleModalShow}
+          >
+            Post Item
+      </Button>
       <div className="cards">
         {lostItems.map((item) => (
           <Card key={item._id} className="custom-card" >
