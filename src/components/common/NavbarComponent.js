@@ -7,7 +7,6 @@ import DarkMode from './DarkMode/DarkMode';
 import { Link, useLocation} from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import PostItemModal from "../modal/PostItemModal";
 import { useState } from 'react';
 
 function NavbarComponent() {
@@ -27,15 +26,6 @@ function NavbarComponent() {
     navigate('/login');
   };
 
-  // State to manage modal visibility 
-  const [showModal, setShowModal] = useState(false);
-
-  // Function to show the modal 
-  const handleModalShow = () => setShowModal(true);
-
-  // Function to hide the modal
-  const handleModalClose = () => setShowModal(false);
-
   return (
     <Navbar bg="dark" data-bs-theme="dark">
     <Container fluid >
@@ -50,23 +40,6 @@ function NavbarComponent() {
             </>
           )}
       </Nav>
-      { isLoggedIn && (location.pathname === '/lost' ) && (
-        <>
-          <PostItemModal
-            showModal={showModal}
-            handleModalShow={handleModalShow}
-            handleModalClose={handleModalClose}
-          />
-          <Button
-            variant='primary'
-            className="post-item-button"
-            onClick={handleModalShow}
-          >
-            Post Item
-          </Button>
-        </>
-      )}
-      
       {isLoggedIn && (
         <Button variant='danger' className='logout-button' onClick={handleLogout}>Logout</Button>
       )}
