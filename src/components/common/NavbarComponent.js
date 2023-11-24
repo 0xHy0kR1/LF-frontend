@@ -8,8 +8,18 @@ import { Link, useLocation} from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
+import PostItemModal from '../modal/PostItemModal';
 
-function NavbarComponent() {
+function NavbarComponent(props) {
+// State to manage modal visibility 
+const [showModal, setShowModal] = useState(false);
+
+// Function to show the modal 
+const handleModalShow = () => setShowModal(true);
+
+// Function to hide the modal
+const handleModalClose = () => setShowModal(false);
+
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -17,6 +27,8 @@ function NavbarComponent() {
   // Check if the user is logged in (based on the presence of authToken)
   const isLoggedIn = !!localStorage.getItem('authToken');
 
+  const isLostPage = location.pathname === '/lost';
+  
   // Handle logout
   const handleLogout = () => {
     // Clear the authentication token from localStorage
@@ -32,7 +44,7 @@ function NavbarComponent() {
       <Nav className="me-auto">
       <Link to="/" className='nav-link'>Home</Link>
       <Link to="/lost" className='nav-link'>Lost Items</Link>
-      <Link to="/found" className='nav-link'>Found Items</Link>
+      {/* <Link to="/my-listing" className='nav-link'>my-listing</Link> */}
       {isLoggedIn ? ('') : (
             <>
               <Link to="/Signup" className='nav-link'>sign-up</Link>
@@ -40,6 +52,25 @@ function NavbarComponent() {
             </>
           )}
       </Nav>
+      
+      {isLostPage && isLoggedIn && (
+          <>
+            <PostItemModal
+              showModal={showModal}
+              handleModalShow={handleModalShow}
+              handleModalClose={handleModalClose}
+              fetchLostItems={props.fetchLostItems}
+              showAlert={props.alert}
+            />
+            <Button
+              variant='primary'
+              className="post-item-button"
+              onClick={handleModalShow}
+            >
+              Post Item
+            </Button>
+          </>
+        )}
       {isLoggedIn && (
         <Button variant='danger' className='logout-button' onClick={handleLogout}>Logout</Button>
       )}
