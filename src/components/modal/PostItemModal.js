@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { createLostItem } from './../services/lostItemService';
+import './PostItemModal.css';
 function PostItemModal(props) {
 
   const [ selectedFile, setSelectedFile ] = useState(null);
@@ -30,8 +31,22 @@ function PostItemModal(props) {
     }));
   };
 
-  // Function to hide the modal
-  const handleModalClose = async () => {
+    // Function to hide the modal
+    const handleModalClose = async () => {
+    // Check if required fields are filled
+    if (
+      !formData.title ||
+      !formData.description ||
+      !formData.category ||
+      !formData.location ||
+      !formData.securityQuestion
+    ) {
+      props.handleModalClose();
+      // Show an alert if any required field is empty
+      props.showAlert('danger', 'Please fill in all required fields.');
+      return;
+    }
+
     // Combine form data with selected file
     const data = new FormData();
     console.log("form data title: ",formData.title);
@@ -76,18 +91,21 @@ function PostItemModal(props) {
   return (
     <>
       <Modal show={props.showModal} onHide={props.handleModalClose}>
-        <Modal.Header closeButton>
+        <Modal.Header className='post-item-modal'>
           <Modal.Title>Post Your Lost Item</Modal.Title>
+          <Button variant="link" className="post-item-close-button" onClick={props.handleModalClose}>
+            X
+          </Button>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className='post-item-modal'>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> 
-              <Form.Control type="text" placeholder="Enter title" autoFocus name="title" value={formData.title} onChange={handleInputChange}/>
+              <Form.Control className='answer-modal-input' type="text" placeholder="Enter title" autoFocus name="title" value={formData.title} onChange={handleInputChange}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> 
-              <Form.Control type="text" placeholder="Enter description" autoFocus name="description" value={formData.description} onChange={handleInputChange}/>
+              <Form.Control className='answer-modal-input' type="text" placeholder="Enter description" autoFocus name="description" value={formData.description} onChange={handleInputChange}/>
             </Form.Group>
-            <Form.Select aria-label="Default select example" name="category" value={formData.category} onChange={handleInputChange}>
+            <Form.Select className='mb-3 answer-modal-input' aria-label="Default select example" name="category" value={formData.category} onChange={handleInputChange}>
               <option>Category</option>
               <option value="Electronics">Electronics</option>
               <option value="Clothing">Clothing</option>
@@ -104,17 +122,17 @@ function PostItemModal(props) {
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Control type="text" placeholder="location" name="location" value={formData.location} onChange={handleInputChange}/>
+              <Form.Control className='answer-modal-input' type="text" placeholder="location" name="location" value={formData.location} onChange={handleInputChange}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> 
-              <Form.Control type="text" placeholder="Enter Security Question" autoFocus name="securityQuestion" value={formData.securityQuestion} onChange={handleInputChange}/>
+              <Form.Control className='answer-modal-input' type="text" placeholder="Enter Security Question" autoFocus name="securityQuestion" value={formData.securityQuestion} onChange={handleInputChange}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> 
-              <Form.Control type="text" placeholder="Enter Security Answer" autoFocus name="securityAnswer" value={formData.securityAnswer} onChange={handleInputChange}/>
+              <Form.Control className='answer-modal-input' type="text" placeholder="Enter Security Answer" autoFocus name="securityAnswer" value={formData.securityAnswer} onChange={handleInputChange}/>
             </Form.Group>
             <Form.Group controlId="formFileSm" className="mb-3">
-                <Form.Label>Choose Files</Form.Label>
-                <Form.Control type="file" accept="image/*" size="sm" onChange={handleFileChange} />
+                <Form.Label >Choose Files</Form.Label>
+                <Form.Control className='answer-modal-input' type="file" accept="image/*" size="sm" onChange={handleFileChange} />
                 { selectedFile ? (
                     <p>Selected file: {selectedFile.name}</p>
                 ) : (
@@ -123,8 +141,8 @@ function PostItemModal(props) {
             </Form.Group>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleModalClose}>
+        <Modal.Footer className='post-item-modal'>
+          <Button variant="secondary" onClick={props.handleModalClose}>
             Close
           </Button>
           <Button variant="primary" onClick={handleModalClose}>
