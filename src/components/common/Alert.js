@@ -1,22 +1,25 @@
 import { useState } from 'react';
 import './../../App.css'
 function Alert(props) {
-  const [show, setShow] = useState(true);
-  const capitalized = (word) => {
-    if (!word) {
-        return ''; // Return an empty string or another default value
-      }
-    if(word === "danger"){
-      word = "error";
+  const getCustomMessage = (type) => {
+    switch (type) {
+      case 'success':
+        return 'Success:';
+      case 'danger':
+        return 'Oops! Something went wrong:';
+      case 'warning':
+        return 'Warning:';
+      // Add more cases for other alert types if needed
+      default:
+        return 'Hey there!';
     }
-    const lower = word.toLowerCase();
-    return lower.charAt(0).toUpperCase() + lower.slice(1);
-  }
+  };
+
 
   return (
     <div className='fixed-top-alert'>
       {props.alert && <div className={`alert alert-${props.alert.type} alert-dismissible fade show`} role="alert">
-        <strong>{capitalized(props.alert.type)}</strong>: {props.alert.msg}
+        <strong>{getCustomMessage(props.alert.type)}</strong>: {props.alert.msg}
       </div>}
     </div>
   )
