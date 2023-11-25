@@ -63,7 +63,7 @@
           if(itemDetails.data.securityQuestion){
             // Show alert if the user is not logged in
             if (!isLoggedIn) {
-              props.showAlert('warning', 'Please log in to view the author\'s email.');
+              props.showAlert('info', 'Please log in to view the author\'s email.');
               return;
             }
 
