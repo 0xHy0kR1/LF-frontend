@@ -2,53 +2,35 @@
   import Card from 'react-bootstrap/Card';
   import Button from 'react-bootstrap/Button';
   import Modal from 'react-bootstrap/Modal';
-  import { getLostItems, deleteLostItem, answerSecurityQuestion, viewLostItem } from './../services/lostItemService';
+  import { deleteLostItem, answerSecurityQuestion, viewLostItem } from './../services/lostItemService';
   import SecurityQuestionModal from './../modal/SecurityQuestionModal';
   import './LostItems.css';
-  import PostItemModal from "../modal/PostItemModal";
   import Spinner from './../common/Spinner';
-
+  import { fetchLostItems } from './../../utils/lostItemUtils';
+  import { Link } from 'react-router-dom';
+  import Toast from 'react-bootstrap/Toast';
   const LostItems = (props) => {
 
-    const [lostItems, setLostItems] = useState([]);
     const [selectedItemId, setSelectedItemId] = useState(null);
     const [showSecurityQuestionModal, setShowSecurityQuestionModal] = useState(false);
     const [showEmail, setShowEmail] = useState(false);
     const [userEmail, setUserEmail] = useState('');
     const [securityQuestion, setSecurityQuestion] = useState('');
-    const [loading, setLoading] = useState(true);
     const [scrollY, setScrollY] = useState(0);
-
-    // State to manage modal visibility 
-    const [showModal, setShowModal] = useState(false);
-
-    // Function to show the modal 
-    const handleModalShow = () => setShowModal(true);
-
-    // Function to hide the modal
-    const handleModalClose = () => setShowModal(false);
+    const [showLoginToast, setShowLoginToast] = useState(false);
 
     const handleScroll = () => {
       setScrollY(window.scrollY);
     }
-    const fetchLostItems = async () => {
-      try{
-          setLoading(true); // Set loading to true when fetching starts
-          const response = await getLostItems();
-          const items = response.lostItems; // Access the lostItems property
-          setLostItems(items);
-          console.log(items);
-          setLoading(false); // Set loading to false when fetching is complete
-      } catch (error){
-          console.error('Error fetching lost items:', error);
-          props.showAlert('danger', 'Error fetching lost items');
-      }
-    };
 
     useEffect(() => {
       // Fetch and set the list of lost items when the component mounts
-      fetchLostItems();
+      fetchLostItems(props.setLoading, props.setLostItems, props.showAlert);
       window.addEventListener('scroll', handleScroll);
+
+      // Check if the user is logged in when the component mounts
+      const isLoggedInOnMount = !!localStorage.getItem('authToken');
+      setShowLoginToast(!isLoggedInOnMount);
       return () => {
         window.removeEventListener('scroll', handleScroll);
       };
@@ -59,7 +41,7 @@
       try{
           const deleteResult = await deleteLostItem(itemId);
           // Remove the deleted item from the local state
-          setLostItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+          props.setLostItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
           
           if(deleteResult.success) {
               props.showAlert('success', deleteResult.message);
@@ -79,6 +61,12 @@
           // Display item details
           console.log('Item details:', itemDetails);
           if(itemDetails.data.securityQuestion){
+            // Show alert if the user is not logged in
+            if (!isLoggedIn) {
+              props.showAlert('warning', 'Please log in to view the author\'s email.');
+              return;
+            }
+
             setShowEmail(false);
             setSelectedItemId(itemId);
             setSecurityQuestion(itemDetails.data.securityQuestion);
@@ -121,25 +109,17 @@
       window.scrollTo({top: 0, behavior: 'smooth'});
     };
 
+    // Check if the user is logged in (based on the presence of authToken)
+    const isLoggedIn = !!localStorage.getItem('authToken');
+    console.log(isLoggedIn);
+    const handleCloseLoginToast = () => setShowLoginToast(false);
+
     return (
       <div>
         <h2 className='text-center'>Lost Items</h2>
-        <PostItemModal
-              showModal={showModal}
-              handleModalShow={handleModalShow}
-              handleModalClose={handleModalClose}
-              fetchLostItems={fetchLostItems}
-            />
-        <Button
-              variant='primary'
-              className="post-item-button"
-              onClick={handleModalShow}
-            >
-              Post Item
-        </Button>
-        {loading && <Spinner />} {/* Render the spinner while loading */}
+        {props.loading && <Spinner />} {/* Render the spinner while loading */}
         <div className="cards">
-          {!loading && lostItems.map((item) => (
+          {!props.loading && props.lostItems.map((item) => (
             <Card key={item._id} className="custom-card" >
               <Card.Img className="card-image" variant="top" src={item.imageUrl} alt={item.title} />
               <Card.Body className='card-body'>
@@ -164,18 +144,22 @@
             handleClose={handleCloseSecurityQuestionModal}
             onSubmit={(answer) => handleAnswerSecurityQuestion(selectedItemId, answer)}
             securityQuestion={securityQuestion}
+            showAlert={props.showAlert}
           />
         )}
 
         {/* Modal for displaying the email */}
         <Modal show={showEmail} onHide={handleCloseEmailModal}>
-          <Modal.Header closeButton>
+          <Modal.Header className='email-modal-header'>
             <Modal.Title>User Email</Modal.Title>
+            <Button variant="link" className="email-close-button" onClick={props.handleClose}>
+              X
+            </Button>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className='email-modal' >
             <p>Here's the author's email: {userEmail}</p>
           </Modal.Body>
-          <Modal.Footer>
+          <Modal.Footer className='email-modal'>
             <Button variant="secondary" onClick={handleCloseEmailModal}>
               Close
             </Button>
@@ -191,6 +175,33 @@
           &#9650;
         </Button>
       )}
+      {!isLoggedIn ? (
+        <Toast
+          show={showLoginToast}
+          onClose={handleCloseLoginToast}
+          style={{
+            position: 'fixed',
+            top: 65,
+            right: 20,
+            backgroundColor: 'red',
+            color: 'white',
+          }}
+        >
+          <Toast.Header closeButton={false} className='lost-item-toast-modal-header'>
+            <strong className="me-auto">Join the Lost & Found Hub!</strong>
+            <Button
+              variant="link"
+              className="lost-item-toast-close-button"
+              onClick={handleCloseLoginToast}
+            >
+              X
+            </Button>
+          </Toast.Header>
+          <Toast.Body className='lost-item-toast-modal'>
+            <Link to="/Login">Log in</Link> to Post an Item.
+          </Toast.Body>
+        </Toast>
+      ) : ('')}
       </div>
 
     )
