@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -9,20 +9,32 @@ import { Button } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import PostItemModal from '../modal/PostItemModal';
+import { jwtDecode } from "jwt-decode";
 
 function NavbarComponent(props) {
 // State to manage modal visibility 
 const [showModal, setShowModal] = useState(false);
+const navigate = useNavigate();
+const location = useLocation();
+
+useEffect(() => {
+  // Check if the user is logged in and the token is expired
+  const authToken = localStorage.getItem('authToken');
+  if (authToken) {
+    const decodedToken = jwtDecode(authToken);
+    const currentTime = Date.now() / 1000; // Convert to seconds
+    if (decodedToken.exp < currentTime) {
+      // Token is expired, log out the user
+      handleLogout();
+    }
+  }
+}, []);
 
 // Function to show the modal 
 const handleModalShow = () => setShowModal(true);
 
 // Function to hide the modal
 const handleModalClose = () => setShowModal(false);
-
-
-  const navigate = useNavigate();
-  const location = useLocation();
 
   // Check if the user is logged in (based on the presence of authToken)
   const isLoggedIn = !!localStorage.getItem('authToken');
