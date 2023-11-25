@@ -1,30 +1,11 @@
-.post-item-button {
-  display: block;
-  margin: 0 auto;
-  transition: all 0.3s ease; /* Add a smooth transition effect */
-}
 
-.post-item-button:hover {
-  transform: scale(1.3); /* Add a scale effect on hover */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow on hover */
-}
-[data-theme="dark"] .post-item-button{
-  background-color: #60d17d;
-  color: #132818;
-  font-weight: bolder;
-}
-[data-theme="light"] .post-item-button{
-  background-color: #212d37;
-  color: #cccfd1;
-  font-weight: bolder;
-}
-.cards{
-    display: flex;
-    flex-wrap: wrap;
-    max-height: 400px;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 400px;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
 }
 .custom-card {
   width: 18rem;
@@ -34,71 +15,148 @@
   height: 100%;
 }
 
-  .card-body {
-    flex: 1; /* This will make the card body take up the remaining space */
-  }
-  
-  .card-image {
-    object-fit: cover; 
-    width: 100%;
-    height: 100%;
-  }
+.card-body {
+  flex: 1; /* This will make the card body take up the remaining space */
+}
 
-  .scroll-to-top-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    font-size: 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-  }
-  
-  .scroll-to-top-button:hover {
-    background-color: #0056b3;
-  }
+.card-image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
 
-  [data-theme="light"] .scroll-to-top-button{
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    font-size: 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-  }
+.scroll-to-top-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
 
-  [data-theme="dark"] .scroll-to-top-button{
-    background-color: #60d17d;
-    color: #132818;
-    font-weight: bolder;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    font-size: 20px;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-  }
+.scroll-to-top-button:hover {
+  background-color: #0056b3;
+}
+
+[data-theme="light"] .scroll-to-top-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+[data-theme="dark"] .scroll-to-top-button {
+  background-color: #60d17d;
+  color: #132818;
+  font-weight: bolder;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 20px;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+[data-theme="light"] .email-modal-header {
+  background: white;
+  color: black;
+}
+[data-theme="dark"] .email-modal-header {
+  background: black;
+  color: white;
+}
+
+[data-theme="light"] .email-modal {
+  background-color: white;
+  color: #132818;
+  font-weight: bolder;
+}
+[data-theme="dark"] .email-modal {
+  background-color: black;
+  color: #fff;
+  font-weight: bolder;
+}
+
+.email-close-button {
+  color: black;
+  font-size: 20px;
+  margin-left: auto;
+  text-decoration: none;
+}
+[data-theme="light"] .email-close-button {
+  color: black;
+  font-size: 20px;
+  margin-left: auto;
+  text-decoration: none;
+}
+[data-theme="dark"] .email-close-button {
+  color: white;
+  font-size: 20px;
+  margin-left: auto;
+  text-decoration: none;
+}
+.lost-item-toast-modal-header {
+  background: #ffd9d9;
+  color: #595356;
+}
+[data-theme="light"] .lost-item-toast-modal-header {
+  background: #ffd9d9;
+  color: #595356;
+}
+[data-theme="dark"] .lost-item-toast-modal-header {
+  background: black;
+  color: white;
+}
+[data-theme="light"] .lost-item-toast-modal {
+  background-color: #ff0000;
+  color: #ffe7e7;
+}
+[data-theme="dark"] .lost-item-toast-modal {
+  background-color: #30dd41;
+  color: white;
+}
+.lost-item-toast-close-button {
+  color: black;
+  font-size: 20px;
+  margin-left: auto;
+  text-decoration: none;
+}
+[data-theme="light"] .lost-item-toast-close-button {
+  color: black;
+  font-size: 20px;
+  margin-left: auto;
+  text-decoration: none;
+}
+[data-theme="dark"] .lost-item-toast-close-button {
+  color: white;
+  font-size: 20px;
+  margin-left: auto;
+  text-decoration: none;
+}
