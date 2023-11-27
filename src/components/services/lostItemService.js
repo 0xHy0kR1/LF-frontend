@@ -1,12 +1,11 @@
 // Define the base URL for your API
 const BASE_URL = 'http://localhost:5000/api/lost-items';
 
+const authToken = localStorage.getItem('authToken');
 // Function to create a new lost item
 export const createLostItem = async (data) => {
     console.log(data);
     try{
-        // Get the authentication token from local storage
-        const authToken = localStorage.getItem('authToken');
 
         // Create a FormData object to handle the file upload
         const formData = new FormData();
@@ -40,6 +39,7 @@ export const createLostItem = async (data) => {
 // Function to get a list of all lost items
 export const getLostItems = async () => {
     try{
+        
         const response = await fetch(`${BASE_URL}/list`);
         const data = await response.json();
 
@@ -56,15 +56,29 @@ export const getLostItems = async () => {
 // Function to update a specific lost item
 export const updateLostItem = async (itemId, data) => {
     try{
+
+        // Create a FormData object to handle the file upload
+        const formData = new FormData();
+        console.log("Title value: "+data.get("title"));
+        formData.append('image', data.get("image")); // Assuming your file input field is named 'image'
+        formData.append('title', data.get("title"));
+        formData.append('description', data.get("description"));
+        formData.append('category', data.get("category"));
+        formData.append('location', data.get("location"));
+        formData.append('securityQuestion', data.get("securityQuestion"));
+
+        console.log("Inside lostItemService updateLostItem function");
+        console.log("data value inside updateLostItem: "+JSON.stringify(data));
+        console.log("data value inside updateLostItem: "+data);
         const response = await fetch(`${BASE_URL}/update/${itemId}`,{
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json',
-                Authorization: `${localStorage.getItem('authToken')} ` // Include the authentication token in the header
+                authToken: authToken, // Include the authentication token in the header
             },
-            body: JSON.stringify(data),
+            body: formData,
         });
 
+        console.log("response value inside updateLostItem: "+ JSON.stringify(response));
         if(response.ok){
             return { success: true, message: 'Lost item updated successfully' };
         } else{
@@ -78,13 +92,14 @@ export const updateLostItem = async (itemId, data) => {
 // Function to delete the lost item
 export const deleteLostItem = async (itemId) => {
     try{
+        console.log("Inside lostItemService: ");
         const response = await fetch(`${BASE_URL}/delete/${itemId}`,{
             method: 'DELETE',
             headers: {
-                Authorization: `Bearer ${localStorage.getItem('authToken')}`, // Include the authentication token in the header
+                authToken: authToken, // Include the authentication token in the header
             }
         });
-
+        console.log("Before response ok: ");
         if(response.ok){
             return { success: true, message: 'Lost item deleted successfully'};
         } else{
@@ -101,7 +116,7 @@ export const viewLostItem = async (itemId) => {
     try{
         const response = await fetch(`${BASE_URL}/view/${itemId}`,{
             headers: {
-                Authorization: `Bearer ${localStorage.getItem('authToken')}`, // Include the authentication token in the header
+                authToken: authToken, // Include the authentication token in the header
             },
         });
 
