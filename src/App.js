@@ -9,7 +9,7 @@ import Login from './components/authentication/Login';
 import Alert from './components/common/Alert'
 import LostItems from './components/pages/LostItems';
 import FoundItems from './components/pages/FoundItems';
-import MyListing from './components/pages/MyListing';
+import MyListing from './components/pages/MyListing.js';
 import { fetchLostItems } from './utils/lostItemUtils';
 // import ItemDetails from './components/pages/ItemDetails';
 // import Footer from './components/common/Footer';
@@ -45,7 +45,7 @@ function App() {
           <Route path="/Signup" element={<Signup showAlert={showAlert} />} /> 
           <Route path="/Login" element={<Login showAlert={showAlert} />} />
           <Route path="/lost" element={<LostItems showAlert={showAlert} setLostItems={setLostItems} setLoading={setLoading} lostItems={lostItems} loading={loading} />} />
-          {/* <Route path="/my-listing" element={<MyListing />} /> */}
+          <Route path="/my-listing" element={<MyListing showAlert={showAlert} setLostItems={setLostItems} setLoading={setLoading} lostItems={lostItems} loading={loading} />} />
           {/* <Route path="/item/:id" element={<ItemDetails />} /> */}
         </Routes>
       {/* <Footer /> */}
