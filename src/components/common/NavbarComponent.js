@@ -25,7 +25,7 @@ useEffect(() => {
     const currentTime = Date.now() / 1000; // Convert to seconds
     if (decodedToken.exp < currentTime) {
       // Token is expired, log out the user
-      handleLogout();
+      handleLogoutToHome();
     }
   }
 }, []);
@@ -48,6 +48,15 @@ const handleModalClose = () => setShowModal(false);
 
     // Redirect the user to the login page
     navigate('/login');
+  };
+
+  // Handle logout
+  const handleLogoutToHome = () => {
+    // Clear the authentication token from localStorage
+    localStorage.removeItem('authToken');
+
+    // Redirect the user to the login page
+    navigate('/');
   };
 
   return (
