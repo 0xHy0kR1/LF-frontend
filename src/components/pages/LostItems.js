@@ -2,13 +2,15 @@
   import Card from 'react-bootstrap/Card';
   import Button from 'react-bootstrap/Button';
   import Modal from 'react-bootstrap/Modal';
-  import { deleteLostItem, answerSecurityQuestion, viewLostItem } from './../services/lostItemService';
+  import { updateLostItem, deleteLostItem, answerSecurityQuestion, viewLostItem } from './../services/lostItemService';
   import SecurityQuestionModal from './../modal/SecurityQuestionModal';
   import './LostItems.css';
   import Spinner from './../common/Spinner';
   import { fetchLostItems } from './../../utils/lostItemUtils';
   import { Link } from 'react-router-dom';
   import Toast from 'react-bootstrap/Toast';
+  import UpdateItemModal from '../modal/UpdateItemModal';
+  
   const LostItems = (props) => {
 
     const [selectedItemId, setSelectedItemId] = useState(null);
@@ -18,6 +20,8 @@
     const [securityQuestion, setSecurityQuestion] = useState('');
     const [scrollY, setScrollY] = useState(0);
     const [showLoginToast, setShowLoginToast] = useState(false);
+    const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const [updateItemId, setUpdateItemId] = useState(null);
 
     const handleScroll = () => {
       setScrollY(window.scrollY);
@@ -37,12 +41,58 @@
 
     }, []);
 
+    const handleUpdateItem = (itemId) => {
+      setUpdateItemId(itemId);
+      setShowUpdateModal(true);
+    }
+
+    const handleCloseUpdateModal = () => {
+      setShowUpdateModal(false);;
+      setUpdateItemId(null);
+    }
+
+    // Function to handle updating a lost item
+    const handleUpdateItemDetails = async (itemId, newData) => {
+      try {
+        console.log("newData value: ", JSON.stringify(newData));
+        const updatedItem = await updateLostItem(updateItemId, newData);
+        console.log("updatedItem value: " + JSON.stringify(updatedItem));
+        setShowUpdateModal(false);
+        setUpdateItemId(null);
+        // Update the local state with the updated item
+        props.setLostItems((prevItems) =>
+          prevItems.map((item) => (item._id === itemId ? updatedItem : item))
+        );
+        // props.fetchLostItems();
+        if(updatedItem.success){
+          // Optionally, you can perform any actions needed upon success
+          console.log("Item created successfully");
+
+          // Close the modal
+          handleCloseUpdateModal();
+
+          // Fetch and set the list of lost items after updating an item
+          fetchLostItems(props.setLoading, props.setLostItems, props.showAlert);
+
+          props.showAlert('success', updatedItem.message);
+        } else{
+          props.showAlert('danger', updatedItem.message);
+        }
+      } catch (error) {
+        props.showAlert('danger', 'Failed to update the lost item');
+        console.error('Error updating lost item:', error);
+      }
+    };
+
     const handleDeleteItem = async (itemId) => {
+      console.log("Inside handleDeleteItem function");
       try{
           const deleteResult = await deleteLostItem(itemId);
+          console.log("delte Result: ", deleteResult);
           // Remove the deleted item from the local state
-          props.setLostItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+          props.setLostItems((prevItems) => prevItems.filter((item) => item._id !== itemId));
           
+          console.log("delete result: ", deleteResult);
           if(deleteResult.success) {
               props.showAlert('success', deleteResult.message);
           } else{
@@ -60,7 +110,7 @@
           itemDetails = await viewLostItem(itemId);
           // Display item details
           console.log('Item details:', itemDetails);
-          if(itemDetails.data.securityQuestion){
+          if(itemDetails.data && itemDetails.data.securityQuestion){
             // Show alert if the user is not logged in
             if (!isLoggedIn) {
               props.showAlert('info', 'Please log in to view the author\'s email.');
@@ -127,16 +177,31 @@
                 <Card.Text>Description: {item.description}</Card.Text>
                 <Card.Text>Category: {item.category}</Card.Text>
                 <Card.Text>Location: {item.location}</Card.Text>
-                {item.securityQuestion && (
+                {item.securityQuestion && !props.isMyListing && (
                   <Button variant="info" onClick={() => handleViewDetails(item._id)}>
                     View Email of author
                   </Button>
+                )}
+                {props.isMyListing && (
+                  <>
+                  <Button variant="danger" onClick={() => handleDeleteItem(item._id)}>
+                    Delete
+                  </Button>
+                  <Button variant="warning" onClick={() => handleUpdateItem(item._id)}>
+                    Update
+                  </Button>
+                </>
                 )}
               </Card.Body>
             </Card>
           ))}
         </div>
-
+        <UpdateItemModal
+          show={showUpdateModal}
+          handleClose={handleCloseUpdateModal}
+          handleUpdateItemDetails={handleUpdateItemDetails}
+          updateItemId={updateItemId}
+        />
         {/* Modal for answering security question */}
         {showSecurityQuestionModal && securityQuestion && ( // Check if itemDetails is defined
           <SecurityQuestionModal
@@ -152,7 +217,7 @@
         <Modal show={showEmail} onHide={handleCloseEmailModal}>
           <Modal.Header className='email-modal-header'>
             <Modal.Title>User Email</Modal.Title>
-            <Button variant="link" className="email-close-button" onClick={props.handleClose}>
+            <Button variant="link" className="email-close-button" onClick={handleCloseEmailModal}>
               X
             </Button>
           </Modal.Header>
