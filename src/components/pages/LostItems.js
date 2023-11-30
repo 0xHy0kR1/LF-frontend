@@ -10,6 +10,9 @@
   import { Link } from 'react-router-dom';
   import Toast from 'react-bootstrap/Toast';
   import UpdateItemModal from '../modal/UpdateItemModal';
+  import { toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+
   
   const LostItems = (props) => {
 
@@ -72,14 +75,14 @@
           handleCloseUpdateModal();
 
           // Fetch and set the list of lost items after updating an item
-          fetchLostItems(props.setLoading, props.setLostItems, props.showAlert);
+          fetchLostItems(props.setLoading, props.setLostItems);
 
-          props.showAlert('success', updatedItem.message);
+          toast.success(updatedItem.message);
         } else{
-          props.showAlert('danger', updatedItem.message);
+          toast.error(updatedItem.message);
         }
       } catch (error) {
-        props.showAlert('danger', 'Failed to update the lost item');
+        toast.error('Failed to update the lost item');
         console.error('Error updating lost item:', error);
       }
     };
@@ -94,13 +97,13 @@
           
           console.log("delete result: ", deleteResult);
           if(deleteResult.success) {
-              props.showAlert('success', deleteResult.message);
+            toast.success(deleteResult.message);
           } else{
-              props.showAlert('danger', deleteResult.message);
+            toast.error(deleteResult.message);
           }
       } catch(error){
           console.error('Error deleting lost item:', error);
-          props.showAlert('danger', 'Failed to delete the lost item');
+          toast.error('Failed to delete the lost item');
       }
     }
 
@@ -111,7 +114,7 @@
           if(itemDetails.data && itemDetails.data.securityQuestion){
             // Show alert if the user is not logged in
             if (!isLoggedIn) {
-              props.showAlert('info', 'Please log in to view the author\'s email.');
+              toast.info('Please log in to view the author\'s email.');
               return;
             }
 
@@ -124,7 +127,7 @@
           }
       } catch(error){
           console.error('Error viewing item details:', error);
-          props.showAlert('danger', 'Error viewing item details');
+          toast.error('Error viewing item details');
       }
     }
 
@@ -145,12 +148,14 @@
           
           // (show the toast in MyListing page)Persist the state that another user answer the question successfully in localStorage
           localStorage.setItem('securityQuestionAnswered', 'true');
+
+          toast.success('Security question answered successfully!');
         }else {
           setShowSecurityQuestionModal(false);
-          props.showAlert('danger', result.message || 'Incorrect answer');
+          toast.error(result.message || 'Incorrect answer');
         }
       } catch(error){
-        props.showAlert('danger', "Incorrect answer");
+        toast.error('Incorrect answer');
         console.error('Error answering security question', error);
       }
     }

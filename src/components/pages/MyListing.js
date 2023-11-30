@@ -6,6 +6,8 @@ import Button from 'react-bootstrap/Button';
 import { jwtDecode } from "jwt-decode";
 import { fetchLostItems } from './../../utils/lostItemUtils';
 import { markItemAsFound } from './../services/lostItemService'; // Import the actual service function
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MyListing = ({ showAlert, lostItems, setLostItems, loading, setLoading}) => {
 
@@ -64,8 +66,8 @@ const MyListing = ({ showAlert, lostItems, setLostItems, loading, setLoading}) =
             // Update the local state with the new found items
             await fetchLostItems(setLoading, setLostItems, showAlert);
   
-            // Display a success message using showAlert
-            showAlert('success', markAsFoundResult.message);
+            // Display a success message using toast
+            toast.success(markAsFoundResult.message);
             
             // Remove displayTitle from localStorage
             localStorage.removeItem('displayTitle');
@@ -75,12 +77,12 @@ const MyListing = ({ showAlert, lostItems, setLostItems, loading, setLoading}) =
           } else{
             // Handle the case where marking the item as found failed
             console.error(markAsFoundResult.message);
-            showAlert('danger', markAsFoundResult.message);
+            toast.error('Failed to mark the item as found. Try to refresh the page');
           }
         } catch (error){
           // Handling any unexpected errors
           console.error('Failed to mark the item as found: ', error);
-          showAlert('danger', 'Failed to mark the item as found');
+          toast.error('Failed to mark the item as found. Try to refresh the page');
         }
       };
     }

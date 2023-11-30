@@ -5,6 +5,8 @@ import React from 'react';
 import './Signup.css'; 
 import top from "./../../assets/cred-top.png";
 import authService from './../services/authService';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Signup(props) {
   
@@ -23,9 +25,9 @@ function Signup(props) {
 
     // Show the alert based on the signup result
     if(signupResult.success) {
-      props.showAlert('success', signupResult.message);
+      toast.success(signupResult.message);
     } else{
-      props.showAlert('danger', signupResult.message);
+      toast.error(signupResult.message);
     }
 }
   return (

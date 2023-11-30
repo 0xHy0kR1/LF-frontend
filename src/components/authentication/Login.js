@@ -6,8 +6,10 @@ import './Login.css';
 import top from "./../../assets/cred-top.png";
 import authService from './../services/authService'
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function Login(props) {
+function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -29,13 +31,13 @@ function Login(props) {
       localStorage.setItem('authToken', loginResult.token);
 
       // Show success alert
-      props.showAlert('success', loginResult.message);
+      toast.success(loginResult.message);
 
       // Redirect the user to Home page after successful login
       navigate('/');
     }else {
       // Show error alert
-      props.showAlert('danger', loginResult.message);
+      toast.error(loginResult.message);
     }
   }
 
