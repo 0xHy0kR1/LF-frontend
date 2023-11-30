@@ -152,3 +152,29 @@ export const answerSecurityQuestion = async (itemId, data) => {
         return { success: false, message: 'Failed to submit the answer'}
     }
 }
+
+// Function to send request to backend to mark the item as found
+export const markItemAsFound = async (itemId) => {
+    try{
+        const response = await fetch(`${BASE_URL}/markAsFound/${itemId}`, {
+            method: 'PUT', 
+            headers: {
+                authToken: authToken,
+            },
+        });
+        
+        if(response.ok){
+            const data = await response.json(); // Parse the response as JSON
+            console.log("data value from markAsFound: ", data);
+
+            return { success: true, message: data.message };
+        } else{
+            // Handle the case where the response is not successful
+            return { success: false, message: 'Failed to mark the item as found' };
+        }
+        
+    } catch(error){
+        // Handle any network or other errors
+        return { success: false, message: 'Failed to mark the item as found' };
+    }
+}
