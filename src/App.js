@@ -44,8 +44,8 @@ function App() {
           <Route path="/" element={<Home />} /> 
           <Route path="/Signup" element={<Signup showAlert={showAlert} />} /> 
           <Route path="/Login" element={<Login showAlert={showAlert} />} />
-          <Route path="/lost" element={<LostItems showAlert={showAlert} setLostItems={setLostItems} setLoading={setLoading} lostItems={lostItems} loading={loading} />} />
-          <Route path="/my-listing" element={<MyListing showAlert={showAlert} setLostItems={setLostItems} setLoading={setLoading} lostItems={lostItems} loading={loading} />} />
+          <Route path="/lost" element={<LostItems showAlert={showAlert} setLostItems={setLostItems} setLoading={setLoading} lostItems={lostItems} loading={loading}/>} />
+          <Route path="/my-listing" element={<MyListing showAlert={showAlert} setLostItems={setLostItems} setLoading={setLoading} lostItems={lostItems} loading={loading}/>}/>
           {/* <Route path="/item/:id" element={<ItemDetails />} /> */}
         </Routes>
       {/* <Footer /> */}
