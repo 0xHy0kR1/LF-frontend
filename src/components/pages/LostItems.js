@@ -105,11 +105,9 @@
     }
 
     const handleViewDetails = async (itemId) => {
-      let itemDetails;
       try{
-          itemDetails = await viewLostItem(itemId);
+          const itemDetails = await viewLostItem(itemId);
           // Display item details
-          console.log('Item details:', itemDetails);
           if(itemDetails.data && itemDetails.data.securityQuestion){
             // Show alert if the user is not logged in
             if (!isLoggedIn) {
@@ -133,10 +131,20 @@
     const handleAnswerSecurityQuestion = async (itemId, answer) => {
       try{
         const result = await answerSecurityQuestion(itemId, { securityQuestion: { answer}});
+        console.log("result value indeside handleAnswerSecurityQuestion: "+JSON.stringify(result));
         if(result.data && result.data.email){
           setUserEmail(result.data.email);
           setShowEmail(true);
           setShowSecurityQuestionModal(false);
+
+          // Set the title to display in toast
+          localStorage.setItem('displayTitle', result.data.itemName);
+
+          // Set the userId to dynamically display toast based on the lost item user
+          localStorage.setItem('userId', result.data.userId);
+          
+          // (show the toast in MyListing page)Persist the state that another user answer the question successfully in localStorage
+          localStorage.setItem('securityQuestionAnswered', 'true');
         }else {
           setShowSecurityQuestionModal(false);
           props.showAlert('danger', result.message || 'Incorrect answer');
