@@ -65,6 +65,7 @@ const handleModalClose = () => setShowModal(false);
       <Nav className="me-auto">
       <Link to="/" className='nav-link'>Home</Link>
       <Link to="/lost" className='nav-link'>Lost Items</Link>
+      <Link to="/found" className='nav-link'>found Items</Link>
       {isLoggedIn ? (
         <>
           <Link to="/my-listing" className='nav-link'>my-listing</Link>
