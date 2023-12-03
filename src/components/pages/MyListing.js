@@ -5,11 +5,12 @@ import Toast from 'react-bootstrap/Toast';
 import Button from 'react-bootstrap/Button';
 import { jwtDecode } from "jwt-decode";
 import { fetchLostItems } from './../../utils/lostItemUtils';
-import { markItemAsFound } from './../services/lostItemService'; // Import the actual service function
+import { markItemAsFound } from './../services/foundItemService'; // Import the actual service function
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './MyListing.css'
 
-const MyListing = ({ showAlert, lostItems, setLostItems, loading, setLoading}) => {
+const MyListing = ({ showAlert, lostItems, setLostItems, loading, setLoading, foundItems, setFoundItems}) => {
 
   useEffect(() => {
     // Fetch lost items for the current user when the component mounts
@@ -88,7 +89,6 @@ const MyListing = ({ showAlert, lostItems, setLostItems, loading, setLoading}) =
     }
   return (
     <div>
-      <h2 className='text-center'>My Listings</h2>
 
       {/* Display Lost Items */}
       <LostItems
@@ -102,20 +102,29 @@ const MyListing = ({ showAlert, lostItems, setLostItems, loading, setLoading}) =
       />
 
       {/* Display Found Items */}
-      <h3>Found Items</h3>
       {/* <FoundItems /* Similar to LostItems component */ /*/> */}
+      <FoundItems
+        setFoundItems={setFoundItems}
+        setLoading={setLoading}
+        foundItems={userLostItems}
+        loading={loading}
+        // Pass an additional prop to indicate that this is the MyListing component
+        isMyListing={true}
+      />
 
       {/* Toast for "Did you get the item" */}
-      <Toast show={(localStorage.getItem('securityQuestionAnswered') === 'true') && shouldDisplayToast} >
-        <Toast.Header closeButton={false}>
-          <strong>Did you get the {localStorage.getItem('displayTitle')}?</strong>
-        </Toast.Header>
-        <Toast.Body>
-          <Button variant='success' onClick={handleToastYesClick}>
-            YES
-          </Button>
-        </Toast.Body>
-      </Toast>
+      <div className="toast-container">
+        <Toast show={(localStorage.getItem('securityQuestionAnswered') === 'true') && shouldDisplayToast} className="toast">
+          <Toast.Header closeButton={false}>
+            <strong>Did you get the {localStorage.getItem('displayTitle')}?</strong>
+          </Toast.Header>
+          <Toast.Body>
+            <Button variant='success' onClick={handleToastYesClick}>
+              YES
+            </Button>
+          </Toast.Body>
+        </Toast>
+      </div>
     </div>
   );
 }
