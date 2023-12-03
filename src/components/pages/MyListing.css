@@ -1,0 +1,8 @@
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+.toast{
+    height: 14vh;
+}
