@@ -11,7 +11,6 @@ export const fetchLostItems = async (setLoading, setLostItems, showAlert) => {
     const response = await getLostItems(); // Adjust this based on your actual API call
     const items = response.lostItems; // Access the lostItems property
     setLostItems(items);
-    console.log(items);
 
     setLoading(false); // Set loading to false when fetching is complete
   } catch (error) {
