@@ -10,27 +10,19 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './MyListing.css'
 
-const MyListing = ({ showAlert, lostItems, setLostItems, loading, setLoading, foundItems, setFoundItems}) => {
+const MyListing = ({ showAlert, lostItems, setLostItems, lostLoading, setLostLoading, foundItems, setFoundItems, setFoundLoading, foundLoading}) => {
 
   const [scrollY, setScrollY] = useState(0);
 
   const handleScroll = () => {
     setScrollY(window.scrollY);
+    console.log("scrollY value: ", scrollY);
   }
 
   useEffect(() => {
 
     // Fetch lost items for the current user when the component mounts
-    const fetchData = async () => {
-      try {
-        await fetchLostItems(setLoading, setLostItems, showAlert);
-      } catch (error) {
-        // Handle any unexpected errors
-        console.error('Error fetching lost items:', error);
-      }
-    };
-
-    fetchData(); // Call the fetchData function to initiate the data fetching
+    fetchLostItems(setLostLoading, setLostItems, showAlert);
 
     window.addEventListener('scroll', handleScroll);
     return () => {
@@ -78,7 +70,7 @@ const MyListing = ({ showAlert, lostItems, setLostItems, loading, setLoading, fo
   
           
             // Update the local state with the new found items
-            await fetchLostItems(setLoading, setLostItems, showAlert);
+            await fetchLostItems(setLostLoading, setLostItems, showAlert);
   
             // Display a success message using toast
             toast.success(markAsFoundResult.message);
@@ -112,10 +104,9 @@ const MyListing = ({ showAlert, lostItems, setLostItems, loading, setLoading, fo
         {/* Display Lost Items */}
         <LostItems
           setLostItems={setLostItems}
-          setLoading={setLoading}
+          setLostLoading={setLostLoading}
           lostItems={userLostItems}
-          loading={loading}
-          showAlert={showAlert}
+          lostLoading={lostLoading}
           // Pass an additional prop to indicate that this is the MyListing component
           isMyListing={true}
         />
@@ -126,9 +117,9 @@ const MyListing = ({ showAlert, lostItems, setLostItems, loading, setLoading, fo
       <div className="found-items-block">
         <FoundItems
           setFoundItems={setFoundItems}
-          setLoading={setLoading}
+          setFoundLoading={setFoundLoading}
           foundItems={userLostItems}
-          loading={loading}
+          foundLoading={foundLoading}
           // Pass an additional prop to indicate that this is the MyListing component
           isMyListing={true}
         />

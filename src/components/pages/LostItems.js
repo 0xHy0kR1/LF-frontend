@@ -32,7 +32,7 @@
 
     useEffect(() => {
       // Fetch and set the list of lost items when the component mounts
-      fetchLostItems(props.setLoading, props.setLostItems);
+      fetchLostItems(props.setLostLoading, props.setLostItems);
       window.addEventListener('scroll', handleScroll);
 
       // Check if the user is logged in when the component mounts
@@ -75,7 +75,7 @@
           handleCloseUpdateModal();
 
           // Fetch and set the list of lost items after updating an item
-          fetchLostItems(props.setLoading, props.setLostItems);
+          fetchLostItems(props.setLostLoading, props.setLostItems);
 
           toast.success(updatedItem.message);
         } else{
@@ -180,9 +180,9 @@
     return (
       <div>
         <h2 className='text-center'>Lost Items</h2>
-        {props.loading && <Spinner />} {/* Render the spinner while loading */}
+        {props.lostLoading && <Spinner />} {/* Render the spinner while loading */}
         <div className="cards">
-          {!props.loading && props.lostItems.filter(item => item.isLost).map((item) => (
+          {!props.lostLoading && props.lostItems.filter(item => item.isLost).map((item) => (
             <Card key={item._id} className="custom-card" >
               <Card.Img className="card-image" variant="top" src={item.imageUrl} alt={item.title} />
               <Card.Body className='card-body'>
