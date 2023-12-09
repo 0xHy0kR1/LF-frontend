@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
 import LostItems from './LostItems'; // You may need to adjust the import path
 import FoundItems from './FoundItems'; // You may need to adjust the import path
 import Toast from 'react-bootstrap/Toast';
-import Button from 'react-bootstrap/Button';
 import { jwtDecode } from "jwt-decode";
 import { fetchLostItems } from './../../utils/lostItemUtils';
 import { markItemAsFound } from './../services/foundItemService'; // Import the actual service function
@@ -12,7 +12,14 @@ import './MyListing.css'
 
 const MyListing = ({ showAlert, lostItems, setLostItems, loading, setLoading, foundItems, setFoundItems}) => {
 
+  const [scrollY, setScrollY] = useState(0);
+
+  const handleScroll = () => {
+    setScrollY(window.scrollY);
+  }
+
   useEffect(() => {
+
     // Fetch lost items for the current user when the component mounts
     const fetchData = async () => {
       try {
@@ -24,6 +31,12 @@ const MyListing = ({ showAlert, lostItems, setLostItems, loading, setLoading, fo
     };
 
     fetchData(); // Call the fetchData function to initiate the data fetching
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+
   }, []);
 
   // Get the current user's ID from your authToken 
@@ -87,30 +100,39 @@ const MyListing = ({ showAlert, lostItems, setLostItems, loading, setLoading, fo
         }
       };
     }
+
+    const handleScrollToTop = () => {
+      console.log("scroll top clicked")
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
   return (
     <div>
-
-      {/* Display Lost Items */}
-      <LostItems
-        setLostItems={setLostItems}
-        setLoading={setLoading}
-        lostItems={userLostItems}
-        loading={loading}
-        showAlert={showAlert}
-        // Pass an additional prop to indicate that this is the MyListing component
-        isMyListing={true}
-      />
+      <div className="lost-items-block">
+        {/* Display Lost Items */}
+        <LostItems
+          setLostItems={setLostItems}
+          setLoading={setLoading}
+          lostItems={userLostItems}
+          loading={loading}
+          showAlert={showAlert}
+          // Pass an additional prop to indicate that this is the MyListing component
+          isMyListing={true}
+        />
+      </div>
 
       {/* Display Found Items */}
       {/* <FoundItems /* Similar to LostItems component */ /*/> */}
-      <FoundItems
-        setFoundItems={setFoundItems}
-        setLoading={setLoading}
-        foundItems={userLostItems}
-        loading={loading}
-        // Pass an additional prop to indicate that this is the MyListing component
-        isMyListing={true}
-      />
+      <div className="found-items-block">
+        <FoundItems
+          setFoundItems={setFoundItems}
+          setLoading={setLoading}
+          foundItems={userLostItems}
+          loading={loading}
+          // Pass an additional prop to indicate that this is the MyListing component
+          isMyListing={true}
+        />
+      </div>
 
       {/* Toast for "Did you get the item" */}
       <div className="toast-container">
@@ -125,6 +147,17 @@ const MyListing = ({ showAlert, lostItems, setLostItems, loading, setLoading, fo
           </Toast.Body>
         </Toast>
       </div>
+
+      {scrollY > 0 && (
+        <Button
+          variant='secondary'
+          className='scroll-to-top-button-myListing'
+          onClick={handleScrollToTop}
+        >
+          &#9650;
+        </Button>
+      )}
+      
     </div>
   );
 }
