@@ -1,11 +1,10 @@
-
 .cards {
   display: flex;
   flex-wrap: wrap;
-  max-height: 200px;
   height: 100%;
   align-items: center;
   justify-content: center;
+  z-index: 1;
 }
 .custom-card {
   width: 18rem;

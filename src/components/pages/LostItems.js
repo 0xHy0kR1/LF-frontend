@@ -244,7 +244,7 @@
           </Modal.Footer>
         </Modal>
 
-      {scrollY > 0 && (
+      {scrollY > 0 && !props.isMyListing && (
         <Button
           variant='secondary'
           className='scroll-to-top-button'
