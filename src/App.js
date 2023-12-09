@@ -19,7 +19,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [lostItems, setLostItems] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [lostLoading, setLostLoading] = useState(false);
+  const [foundLoading, setFoundLoading] = useState(false);
   const [foundItems, setFoundItems] = useState([]);
 
   // Function to show an alert
@@ -34,13 +35,7 @@ function App() {
   // Fetch lost items function
   const handleFetchLostItems = async () => {
     // Call fetchLostItems and pass setLoading, setLostItems, and showAlert
-    await fetchLostItems(setLoading, setLostItems);
-  };
-
-  // Fetch lost items function
-  const handleFetchFoundItems = async () => {
-    // Call fetchLostItems and pass setLoading, setLostItems, and showAlert
-    await fetchFoundItems(setLoading, setFoundItems);
+    await fetchLostItems(setLostLoading, setLostItems);
   };
 
   return (
@@ -48,7 +43,7 @@ function App() {
       <NavbarComponent
         lostItems={lostItems}
         setLostItems={setLostItems}
-        loading={loading}
+        lostLoading={lostLoading}
         fetchLostItems={handleFetchLostItems}
       />
       {/* <Alert alert={alert} /> */}
@@ -62,9 +57,9 @@ function App() {
           element={
             <LostItems
               setLostItems={setLostItems}
-              setLoading={setLoading}
+              setLostLoading={setLostLoading}
               lostItems={lostItems}
-              loading={loading}
+              lostLoading={lostLoading}
             />
           }
         />
@@ -73,9 +68,9 @@ function App() {
           element={
             <FoundItems
               setFoundItems={setFoundItems}
-              setLoading={setLoading}
+              setFoundLoading={setFoundLoading}
               foundItems={foundItems}
-              loading={loading}
+              foundLoading={foundLoading}
             />
           }
         />
@@ -85,10 +80,12 @@ function App() {
             <MyListing
               setLostItems={setLostItems}
               setFoundItems={setFoundItems}
-              setLoading={setLoading}
+              setLostLoading={setLostLoading}
+              setFoundLoading={setFoundLoading}
               lostItems={lostItems}
               foundItems={foundItems}
-              loading={loading}
+              lostLoading={lostLoading}
+              foundLoading={foundLoading}
             />
           }
         />
