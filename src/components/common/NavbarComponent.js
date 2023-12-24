@@ -14,6 +14,7 @@ import { jwtDecode } from "jwt-decode";
 function NavbarComponent(props) {
 // State to manage modal visibility 
 const [showModal, setShowModal] = useState(false);
+const [isMenuOpen, setIsMenuOpen] = useState(false);
 const navigate = useNavigate();
 const location = useLocation();
 
@@ -59,10 +60,18 @@ const handleModalClose = () => setShowModal(false);
     navigate('/');
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <Navbar bg="dark" data-bs-theme="dark">
     <Container fluid >
-      <Nav className="me-auto">
+      {/* Mobile menu toggle button */}
+      <Button variant="dark" className="mobile-menu-toggle" onClick={toggleMenu}>
+          ☰
+      </Button>
+      <Nav className={`me-auto ${isMenuOpen ? 'mobile-menu-open' : ''}`}>
       <Link to="/" className='nav-link'>Home</Link>
       <Link to="/lost" className='nav-link'>Lost Items</Link>
       <Link to="/found" className='nav-link'>found Items</Link>

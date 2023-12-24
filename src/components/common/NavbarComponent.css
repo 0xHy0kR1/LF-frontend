@@ -105,3 +105,59 @@ box-shadow: 0px 0px 5px 0px rgba(0, 123, 255, 0.75); /* Add a box shadow on hove
   color: #cccfd1;
   font-weight: bolder;
 }
+
+/* Mobile menu styles */
+.mobile-menu-toggle {
+  display: none; /* Initially hide the mobile menu toggle button */
+}
+
+/* Media query for small screens */
+@media (max-width: 640px) {
+  .me-auto {
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    width: 100%;
+    background-color: black;
+    z-index: 1000;
+    display: none; /* Initially hide the mobile menu */
+  }
+
+  .me-auto a {
+    width: 100%;
+    text-align: center;
+    padding: 10px; /* Adjust the padding as needed */
+    box-sizing: border-box;
+    color: white;
+  }
+
+  .mobile-menu-open .me-auto {
+    display: flex; /* Show the mobile menu when it's open */
+  }
+
+  .nav-link {
+    width: 100%; /* Allow links to take full width */
+    text-align: center; /* Center text in links */
+    color: white;
+  }
+
+  .mobile-menu-toggle {
+    display: block; /* Show the mobile menu toggle button */
+    color: white;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .mobile-menu-toggle:hover {
+    color: #007bff;
+  }
+
+  .mobile-menu-open {
+    display: flex;
+    flex-direction: column;
+  }
+}
