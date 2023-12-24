@@ -21,6 +21,7 @@ const MyListing = ({ showAlert, lostItems, setLostItems, lostLoading, setLostLoa
 
   useEffect(() => {
 
+    setLostItems([]);
     // Fetch lost items for the current user when the component mounts
     fetchLostItems(setLostLoading, setLostItems, showAlert);
 
