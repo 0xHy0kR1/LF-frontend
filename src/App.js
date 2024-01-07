@@ -14,6 +14,7 @@ import { fetchLostItems } from "./utils/lostItemUtils";
 import { fetchFoundItems } from "./utils/foundItemUtils.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { motion } from "framer-motion";
 // import ItemDetails from './components/pages/ItemDetails';
 // import Footer from './components/common/Footer';
 
@@ -22,6 +23,16 @@ function App() {
   const [lostLoading, setLostLoading] = useState(false);
   const [foundLoading, setFoundLoading] = useState(false);
   const [foundItems, setFoundItems] = useState([]);
+  const [burgerClicked, setBurgerClicked] = useState(false);
+
+  const handleBurgerClick = () => {
+    setBurgerClicked(!burgerClicked);
+  };
+
+  const closeBurgerMenu = () => {
+    setBurgerClicked(false);
+    
+  };
 
   // Function to show an alert
   // This function now directly uses toast.success, toast.error, etc., based on the type.
@@ -40,58 +51,71 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavbarComponent
-        lostItems={lostItems}
-        setLostItems={setLostItems}
-        lostLoading={lostLoading}
-        fetchLostItems={handleFetchLostItems}
-      />
-      {/* <Alert alert={alert} /> */}
-      <ToastContainer position="top-right" autoClose={2000} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/Signup" element={<Signup />} />
-        <Route path="/Login" element={<Login />} />
-        <Route
-          path="/lost"
-          element={
-            <LostItems
-              setLostItems={setLostItems}
-              setLostLoading={setLostLoading}
-              lostItems={lostItems}
-              lostLoading={lostLoading}
-            />
-          }
-        />
-        <Route
-          path="/found"
-          element={
-            <FoundItems
-              setFoundItems={setFoundItems}
-              setFoundLoading={setFoundLoading}
-              foundItems={foundItems}
-              foundLoading={foundLoading}
-            />
-          }
-        />
-        <Route
-          path="/my-listing"
-          element={
-            <MyListing
-              setLostItems={setLostItems}
-              setFoundItems={setFoundItems}
-              setLostLoading={setLostLoading}
-              setFoundLoading={setFoundLoading}
-              lostItems={lostItems}
-              foundItems={foundItems}
-              lostLoading={lostLoading}
-              foundLoading={foundLoading}
-            />
-          }
-        />
-        {/* <Route path="/item/:id" element={<ItemDetails />} /> */}
-      </Routes>
-      {/* <Footer /> */}
+    <motion.div
+        initial={{ opacity: 0, y: "-100vh" }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: "100vh" }}
+        transition={{ delay: 0.3, duration:2, type: 'spring'}}
+      >
+          <NavbarComponent
+            lostItems={lostItems}
+            setLostItems={setLostItems}
+            lostLoading={lostLoading}
+            fetchLostItems={handleFetchLostItems}
+            burgerClicked={burgerClicked}
+            closeBurgerMenu={closeBurgerMenu}
+          />
+        {!burgerClicked && (
+          <>
+            {/* <Alert alert={alert} /> */}
+            <ToastContainer position="top-right" autoClose={2000} />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/Signup" element={<Signup />} />
+              <Route path="/Login" element={<Login />} />
+              <Route
+                path="/lost"
+                element={
+                  <LostItems
+                    setLostItems={setLostItems}
+                    setLostLoading={setLostLoading}
+                    lostItems={lostItems}
+                    lostLoading={lostLoading}
+                  />
+                }
+              />
+              <Route
+                path="/found"
+                element={
+                  <FoundItems
+                    setFoundItems={setFoundItems}
+                    setFoundLoading={setFoundLoading}
+                    foundItems={foundItems}
+                    foundLoading={foundLoading}
+                  />
+                }
+              />
+              <Route
+                path="/my-listing"
+                element={
+                  <MyListing
+                    setLostItems={setLostItems}
+                    setFoundItems={setFoundItems}
+                    setLostLoading={setLostLoading}
+                    setFoundLoading={setFoundLoading}
+                    lostItems={lostItems}
+                    foundItems={foundItems}
+                    lostLoading={lostLoading}
+                    foundLoading={foundLoading}
+                  />
+                }
+              />
+              {/* <Route path="/item/:id" element={<ItemDetails />} /> */}
+            </Routes>
+          {/* <Footer /> */}
+          </>
+        )}
+      </motion.div>      
     </BrowserRouter>
   );
 }

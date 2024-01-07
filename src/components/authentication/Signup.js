@@ -7,6 +7,7 @@ import top from "./../../assets/cred-top.png";
 import authService from './../services/authService';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { motion } from "framer-motion"
 
 function Signup(props) {
   
@@ -30,27 +31,44 @@ function Signup(props) {
       toast.error(signupResult.message);
     }
 }
+
+const signupBlockVariant = {
+  hidden: {
+    opacity: 0,
+    y: "100vh",
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: 'spring',
+      delay: 0.5
+    }
+  },
+}
   return (
-    <Container className='signup-container'>
-      <Form className='signup-form' onSubmit={handleSubmit}>
-      <img src={top} alt="cred-dark" className='top-img'/>
-        <Form.Group className="mb-4 signup-input-block" controlId="formBasicEmail">
-          <Form.Control className="signup-input" name="username" type="text" placeholder="username" />
-        </Form.Group>
+    <motion.div className="signup-block" variants={signupBlockVariant} initial="hidden" animate="visible" exit="hidden">
+      <Container className='signup-container'>
+        <Form className='signup-form' onSubmit={handleSubmit}>
+        <img src={top} alt="cred-dark" className='top-img'/>
+          <Form.Group className="mb-4 signup-input-block" controlId="formBasicEmail">
+            <Form.Control className="signup-input" name="username" type="text" placeholder="username" />
+          </Form.Group>
 
-        <Form.Group className="mb-4 signup-input-block" controlId="formBasicEmail">
-          <Form.Control className="signup-input" type="email" placeholder="email address" name="email"/>
-        </Form.Group>
+          <Form.Group className="mb-4 signup-input-block" controlId="formBasicEmail">
+            <Form.Control className="signup-input" type="email" placeholder="email address" name="email"/>
+          </Form.Group>
 
-        <Form.Group className="mb-4 signup-input-block" controlId="formBasicPassword">
-          <Form.Control className="signup-input" type="password" placeholder="password" name="password"/>
-        </Form.Group>
+          <Form.Group className="mb-4 signup-input-block" controlId="formBasicPassword">
+            <Form.Control className="signup-input" type="password" placeholder="password" name="password"/>
+          </Form.Group>
 
-        <Button variant="success" className="signup-submit-button" type="submit">
-          Create An Account
-        </Button>
-      </Form>
-    </Container>
+          <Button variant="success" className="signup-submit-button" type="submit">
+            Create An Account
+          </Button>
+        </Form>
+      </Container>
+    </motion.div>
   );
 }
 

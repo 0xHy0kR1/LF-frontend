@@ -14,96 +14,98 @@ const Home = () => {
   const isLoggedIn = !!localStorage.getItem('authToken');
 
   return (
-    <Container fluid>
-      <Row className="top-box">
-        <Col className="mx-2">
-          <TypeAnimation
-            sequence={[
-              "Welcome to ReclaimHub",
-              1000,
-              "Create An Account",
-              1000,
-              "List Your Lost Items",
-              1000,
-              "Get Notified",
-              1000,
-            ]}
-            wrapper="span"
-            speed={50}
-            style={{ fontSize: "2em", display: "inline-block"  }}
-            repeat={Infinity}
-          />
-          <p>
-            Find what's lost, and reunite with what matters most - where lost
-            items discover their way back home
-          </p>
-        </Col>
-        <Col>
-          <img
-            src={home_top_right}
-            alt="home_top_right_img"
-            className="home-top-img"
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <h2 className="how-work-head">HOW IT WORKS?</h2>
-        </Col>
-      </Row>
-      <Row className="card-section">
-        <Col className="card-box">
-          <Card className="card">
-            <Card.Img
-              variant="top"
-              src={signup}
-              className="card-img-container"
+    <div className="home-block">
+      <Container fluid>
+        <Row className="top-box">
+          <Col className="mx-2">
+            <TypeAnimation
+              sequence={[
+                "Welcome to ReclaimHub",
+                1000,
+                "Create An Account",
+                1000,
+                "List Your Lost Items",
+                1000,
+                "Get Notified",
+                1000,
+              ]}
+              wrapper="span"
+              speed={50}
+              style={{ fontSize: "2em", display: "inline-block"  }}
+              repeat={Infinity}
             />
-            <Card.Body>
-              <Card.Title>Create an account</Card.Title>
-              <Card.Text>
-                Report your lost item and for that create an account
-              </Card.Text>
-              {isLoggedIn ? '': 
-                <Link to="/Signup">
-                  <Button className="card1-bottom-button" variant="success">Sign up</Button>
-                </Link>
-              }
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col className="card-box">
-          <Card className="card">
-            <Card.Img
-              variant="top"
-              src={list_items}
-              className="card-img-container"
+            <p>
+              Find what's lost, and reunite with what matters most - where lost
+              items discover their way back home
+            </p>
+          </Col>
+          <Col>
+            <img
+              src={home_top_right}
+              alt="home_top_right_img"
+              className="home-top-img"
             />
-            <Card.Body>
-              <Card.Title>List Lost/Found Item</Card.Title>
-              <Card.Text>
-                Our smart system finds potential matches for your lost item.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col className="card-box">
-          <Card className="card">
-            <Card.Img
-              variant="top"
-              src={notification}
-              className="card-img-container"
-            />
-            <Card.Body>
-              <Card.Title>Get Notified</Card.Title>
-              <Card.Text>
-                Stay connected and get notified about potential matches.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <h2 className="how-work-head">HOW IT WORKS?</h2>
+          </Col>
+        </Row>
+        <Row className="card-section">
+          <Col className="card-box">
+            <Card className="card">
+              <Card.Img
+                variant="top"
+                src={signup}
+                className="card-img-container"
+              />
+              <Card.Body>
+                <Card.Title>Create an account</Card.Title>
+                <Card.Text>
+                  Report your lost item and for that create an account
+                </Card.Text>
+                {isLoggedIn ? '': 
+                  <Link to="/Signup">
+                    <Button className="card1-bottom-button" variant="success">Sign up</Button>
+                  </Link>
+                }
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col className="card-box">
+            <Card className="card">
+              <Card.Img
+                variant="top"
+                src={list_items}
+                className="card-img-container"
+              />
+              <Card.Body>
+                <Card.Title>List Lost/Found Item</Card.Title>
+                <Card.Text>
+                  Our smart system finds potential matches for your lost item.
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col className="card-box">
+            <Card className="card">
+              <Card.Img
+                variant="top"
+                src={notification}
+                className="card-img-container"
+              />
+              <Card.Body>
+                <Card.Title>Get Notified</Card.Title>
+                <Card.Text>
+                  Stay connected and get notified about potential matches.
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 };
 

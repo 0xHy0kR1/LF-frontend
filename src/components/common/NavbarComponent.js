@@ -10,11 +10,12 @@ import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import PostItemModal from '../modal/PostItemModal';
 import { jwtDecode } from "jwt-decode";
+import { motion, AnimatePresence } from "framer-motion"
 
 function NavbarComponent(props) {
 // State to manage modal visibility 
+const [isToggled, setToggle] = useState(false);
 const [showModal, setShowModal] = useState(false);
-const [isMenuOpen, setIsMenuOpen] = useState(false);
 const navigate = useNavigate();
 const location = useLocation();
 
@@ -41,6 +42,15 @@ const handleModalClose = () => setShowModal(false);
   const isLoggedIn = !!localStorage.getItem('authToken');
 
   const isLostPage = location.pathname === '/lost';
+
+  const closeBurgerMenu = () => {
+    setToggle(false);
+    // If you want to notify the parent component about burger menu close,
+    // you can call props.closeBurgerMenu here
+    // Example: props.closeBurgerMenu();
+    // You can pass additional information if needed, for example:
+    // props.closeBurgerMenu('Burger menu closed');
+  };
   
   // Handle logout
   const handleLogout = () => {
@@ -60,34 +70,104 @@ const handleModalClose = () => setShowModal(false);
     navigate('/');
   };
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const navList = {
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.2,
+        staggerChildren: 0.07
+      }
+    },
+    hidden: {
+      opacity: 0,
+      transition: {
+        staggerChildren: 0.05,
+        staggerDirection: -1
+      }
+    }
+  };
+
+  const navItem = {
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        y: { stiffness: 1000, velocity: -100 }
+      }
+    },
+    hidden: {
+      y: 50,
+      opacity: 0,
+      transition: {
+        y: { stiffness: 1000, velocity: -100 }
+      }
+    }
+  };
+  
+  const navContainer = {
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.2,
+        staggerChildren: 0.07
+      }
+    },
+    hidden: {
+      opacity: 0,
+      transition: {
+        staggerChildren: 0.05,
+        staggerDirection: -1
+      }
+    }
   };
 
   return (
-    <Navbar bg="dark" data-bs-theme="dark">
-    <Container fluid >
-      {/* Mobile menu toggle button */}
-      <Button variant="dark" className="mobile-menu-toggle" onClick={toggleMenu}>
-          ☰
-      </Button>
-      <Nav className={`me-auto ${isMenuOpen ? 'mobile-menu-open' : ''}`}>
-      <Link to="/" className='nav-link'>Home</Link>
-      <Link to="/lost" className='nav-link'>Lost Items</Link>
-      <Link to="/found" className='nav-link'>found Items</Link>
-      {isLoggedIn ? (
-        <>
-          <Link to="/my-listing" className='nav-link'>my-listing</Link>
-        </>
-      ) : (
-            <>
-              <Link to="/Signup" className='nav-link'>sign-up</Link>
-              <Link to="/Login" className='nav-link'>Login</Link>
-            </>
-          )}
-      </Nav>
-      
-      {isLostPage && isLoggedIn && (
+    <>
+    <button className="btn" onClick={() => setToggle(!isToggled)}>
+        =
+    </button>
+    <AnimatePresence>
+      {isToggled && (
+        <motion.div className="nav-block" variants={navContainer} initial="hidden" animate={isToggled ? "visible" : "hidden"} exit="hidden">
+          <Navbar className={`nav-cover`} data-bs-theme="dark">
+          <Container fluid >
+            {/* Mobile menu toggle button */}
+            <motion.div variants={navList} initial="hidden" animate="visible" exit="hidden">
+            <div className={`me-auto`}>
+                    {/* Apply motion to each Link directly */}
+                    <motion.div className='block-link' variants={navItem}>
+                      <Link to="/" className="nav-link" onClick={closeBurgerMenu}>Home</Link>
+                    </motion.div>
+                    <motion.div className='block-link' variants={navItem}>
+                      <Link to="/lost" className="nav-link" onClick={closeBurgerMenu}>Lost Items</Link>
+                    </motion.div>
+                    <motion.div className='block-link' variants={navItem}>
+                      <Link to="/found" className="nav-link" onClick={closeBurgerMenu}>Found Items</Link>
+                    </motion.div>
+                    {isLoggedIn ? (
+                      <motion.div className='block-link' variants={navItem}>
+                        <Link to="/my-listing" className="nav-link" onClick={closeBurgerMenu}>My Listing</Link>
+                      </motion.div>
+                    ) : (
+                      <>
+                        <motion.div className='block-link' variants={navItem}>
+                          <Link to="/Signup" className="nav-link" onClick={closeBurgerMenu}>Sign Up</Link>
+                        </motion.div>
+                        <motion.div className='block-link' variants={navItem}>
+                          <Link to="/Login" className="nav-link" onClick={closeBurgerMenu}>Login</Link>
+                        </motion.div>
+                      </>
+                    )}
+                  </div>
+            </motion.div>
+          </Container>
+        </Navbar>
+        </motion.div>
+    )}
+  </AnimatePresence>
+  {/* DarkMode component */}
+  <div className="dark-mode">
+  {isLostPage && isLoggedIn && (
           <>
             <PostItemModal
               showModal={showModal}
@@ -105,12 +185,14 @@ const handleModalClose = () => setShowModal(false);
             </Button>
           </>
         )}
-      {isLoggedIn && (
+    {isLoggedIn && (
         <Button variant='danger' className='logout-button' onClick={handleLogout}>Logout</Button>
       )}
-      <DarkMode/>
-    </Container>
-  </Navbar>
+      <div className="dark-mode">
+        <DarkMode />
+      </div>
+  </div>
+  </>
   );
 }
 

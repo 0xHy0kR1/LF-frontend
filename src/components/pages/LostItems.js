@@ -12,6 +12,35 @@ import Toast from 'react-bootstrap/Toast';
 import UpdateItemModal from '../modal/UpdateItemModal';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { motion } from "framer-motion";
+
+const titleVariants = {
+  hidden: {
+    x:"-100vw",
+  },
+  visible: {
+    x: 0,
+    transition: {
+      type: "spring", 
+      stiffness: 120
+    }
+  },
+}
+const containerVariants = {
+  hidden: {
+    opacity: 0,
+    x: "100vw",
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      type: 'spring',
+      delay: 0.5
+    }
+  },
+};
+
 
 const LostItems = (props) => {
 
@@ -159,39 +188,49 @@ const LostItems = (props) => {
   console.log(isLoggedIn);
   const handleCloseLoginToast = () => setShowLoginToast(false);
 
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
   return (
-    <div>
-      <h2 className='text-center'>Lost Items</h2>
+    <div >
+      <motion.h2 variants={titleVariants} initial="hidden" animate="visible"  whileHover={{
+                scale: 1.1,
+                textShadow: "0px 0px 8px rgb(255,255,255)",
+              }} className='text-center'>Lost Items</motion.h2>
       {props.lostLoading && <Spinner />} {/* Render the spinner while loading */}
       <div className="cards">
         {!props.lostLoading && props.lostItems.every(item => !item.isLost) ? (
           <p>No Lost Items available.</p>
         ) : (
           props.lostItems.map((item) => (
-            <Card key={item._id} className="custom-card" >
-              <Card.Img className="card-image" variant="top" src={item.imageUrl} alt={item.title} />
-              <Card.Body className='card-body'>
-                <Card.Title>{item.title}</Card.Title>
-                <Card.Text>Description: {item.description}</Card.Text>
-                <Card.Text>Category: {item.category}</Card.Text>
-                <Card.Text>Location: {item.location}</Card.Text>
-                {item.securityQuestion && !props.isMyListing && (
-                  <Button variant="info" onClick={() => handleViewDetails(item._id)}>
-                    View Email of author
-                  </Button>
-                )}
-                {props.isMyListing && (
-                  <>
-                    <Button variant="danger" onClick={() => handleDeleteItem(item._id)}>
-                      Delete
+            <motion.div key={item._id} variants={cardVariants} initial="hidden" animate="visible" className="card-container">
+              <Card key={item._id} className="custom-card" >
+                <Card.Img className="card-image" variant="top" src={item.imageUrl} alt={item.title} />
+                <Card.Body className='card-body'>
+                  <Card.Title>{item.title}</Card.Title>
+                  <Card.Text>Description: {item.description}</Card.Text>
+                  <Card.Text>Category: {item.category}</Card.Text>
+                  <Card.Text>Location: {item.location}</Card.Text>
+                  {item.securityQuestion && !props.isMyListing && (
+                    <Button variant="info" onClick={() => handleViewDetails(item._id)}>
+                      View Email of author
                     </Button>
-                    <Button variant="warning" onClick={() => handleUpdateItem(item._id)}>
-                      Update
-                    </Button>
-                  </>
-                )}
-              </Card.Body>
-            </Card>
+                  )}
+                  {props.isMyListing && (
+                    <>
+                      <Button variant="danger" onClick={() => handleDeleteItem(item._id)}>
+                        Delete
+                      </Button>
+                      <Button variant="warning" onClick={() => handleUpdateItem(item._id)}>
+                        Update
+                      </Button>
+                    </>
+                  )}
+                </Card.Body>
+              </Card>
+            </motion.div>
           ))
         )}
       </div>

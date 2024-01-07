@@ -8,7 +8,7 @@ import authService from './../services/authService'
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { motion } from "framer-motion"
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -41,23 +41,40 @@ function Login() {
     }
   }
 
+  const loginBlockVariant = {
+    hidden: {
+      opacity: 0,
+      y: "-100vh",
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: 'spring',
+        delay: 0.5
+      }
+    },
+  }
+
   return (
-    <Container className='login-container'>
-      <Form className='login-form' onSubmit={handleSubmit}>
-        <img src={top} alt="cred-dark" className='top-img'/>
-        <Form.Group className="mb-4 login-input-block" controlId="formBasicEmail">
-          <Form.Control className="login-input" type="email" placeholder="email address" onChange={(e) => setEmail(e.target.value)}/>
-        </Form.Group>
+    <motion.div className="signup-block" variants={loginBlockVariant} initial="hidden" animate="visible" exit="hidden">
+      <Container className='login-container'>
+        <Form className='login-form' onSubmit={handleSubmit}>
+          <img src={top} alt="cred-dark" className='top-img'/>
+          <Form.Group className="mb-4 login-input-block" controlId="formBasicEmail">
+            <Form.Control className="login-input" type="email" placeholder="email address" onChange={(e) => setEmail(e.target.value)}/>
+          </Form.Group>
 
-        <Form.Group className="mb-4 login-input-block" controlId="formBasicPassword">
-          <Form.Control className="login-input" type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)}/>
-        </Form.Group>
+          <Form.Group className="mb-4 login-input-block" controlId="formBasicPassword">
+            <Form.Control className="login-input" type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)}/>
+          </Form.Group>
 
-        <Button variant="success" className="login-submit-button" type="submit">
-          Create An Account
-        </Button>
-      </Form>
-    </Container>
+          <Button variant="success" className="login-submit-button" type="submit">
+            Create An Account
+          </Button>
+        </Form>
+      </Container>
+    </motion.div>
   );
 }
 
