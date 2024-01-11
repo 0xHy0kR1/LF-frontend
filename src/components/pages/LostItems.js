@@ -14,32 +14,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { motion } from "framer-motion";
 
-const titleVariants = {
-  hidden: {
-    x:"-100vw",
-  },
-  visible: {
-    x: 0,
-    transition: {
-      type: "spring", 
-      stiffness: 120
-    }
-  },
-}
-const containerVariants = {
-  hidden: {
-    opacity: 0,
-    x: "100vw",
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      type: 'spring',
-      delay: 0.5
-    }
-  },
-};
+
 
 
 const LostItems = (props) => {
@@ -195,17 +170,14 @@ const LostItems = (props) => {
 
   return (
     <div >
-      <motion.h2 variants={titleVariants} initial="hidden" animate="visible"  whileHover={{
-                scale: 1.1,
-                textShadow: "0px 0px 8px rgb(255,255,255)",
-              }} className='text-center'>Lost Items</motion.h2>
+      <h2  className='text-center'>Lost Items</h2>
       {props.lostLoading && <Spinner />} {/* Render the spinner while loading */}
       <div className="cards">
         {!props.lostLoading && props.lostItems.every(item => !item.isLost) ? (
           <p>No Lost Items available.</p>
         ) : (
           props.lostItems.map((item) => (
-            <motion.div key={item._id} variants={cardVariants} initial="hidden" animate="visible" className="card-container">
+            <div key={item._id} className="card-container">
               <Card key={item._id} className="custom-card" >
                 <Card.Img className="card-image" variant="top" src={item.imageUrl} alt={item.title} />
                 <Card.Body className='card-body'>
@@ -220,17 +192,19 @@ const LostItems = (props) => {
                   )}
                   {props.isMyListing && (
                     <>
-                      <Button variant="danger" onClick={() => handleDeleteItem(item._id)}>
-                        Delete
-                      </Button>
-                      <Button variant="warning" onClick={() => handleUpdateItem(item._id)}>
-                        Update
-                      </Button>
+                      <div className="bottom-card-button">
+                        <Button variant="danger" onClick={() => handleDeleteItem(item._id)}>
+                          Delete
+                        </Button>
+                        <Button variant="warning" onClick={() => handleUpdateItem(item._id)}>
+                          Update
+                        </Button>
+                      </div>
                     </>
                   )}
                 </Card.Body>
               </Card>
-            </motion.div>
+            </div>
           ))
         )}
       </div>

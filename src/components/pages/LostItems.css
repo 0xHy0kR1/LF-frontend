@@ -159,3 +159,9 @@
   margin-left: auto;
   text-decoration: none;
 }
+
+.bottom-card-button{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
