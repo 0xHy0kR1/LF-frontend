@@ -31,7 +31,7 @@ function App() {
 
   const closeBurgerMenu = () => {
     setBurgerClicked(false);
-    
+    console.log("burgerClicked --> ", burgerClicked);
   };
 
   // Function to show an alert
@@ -64,6 +64,7 @@ function App() {
             fetchLostItems={handleFetchLostItems}
             burgerClicked={burgerClicked}
             closeBurgerMenu={closeBurgerMenu}
+            handleBurgerClick={handleBurgerClick}
           />
         {!burgerClicked && (
           <>
