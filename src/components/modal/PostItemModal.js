@@ -75,6 +75,17 @@ function PostItemModal(props) {
       // Optionally, you can perform any actions needed upon success
       console.log("Item created successfully");
 
+      // Reset the form data and selected file
+      setFormData({
+        title: "",
+        description: "",
+        category: "",
+        location: "",
+        securityQuestion: "",
+        securityAnswer: "",
+      });
+      setSelectedFile(null);
+
       // Close the modal
       props.handleModalClose();
 

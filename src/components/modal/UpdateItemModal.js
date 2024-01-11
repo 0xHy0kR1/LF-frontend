@@ -56,6 +56,17 @@ const UpdateItemModal = ({ show, handleClose, handleUpdateItemDetails, updateIte
       console.log("formData value: ", JSON.stringify(data));
       handleUpdateItemDetails(updateItemId, data);
 
+      // Reset the form data and selected file
+      setFormData({
+        title: "",
+        description: "",
+        category: "",
+        location: "",
+        securityQuestion: "",
+        securityAnswer: "",
+      });
+      setSelectedFile(null);
+      
       console.log("result value: ");
 
     };
