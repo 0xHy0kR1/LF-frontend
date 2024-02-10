@@ -159,66 +159,6 @@ color: rgb(233, 226, 226);
   margin: 10px 0;
 }
 
-/* Media query for small screens */
-@media (max-width: 640px) {
-  .me-auto {
-    flex-direction: column;
-    align-items: flex-start;
-    position: absolute;
-    top: 56px;
-    left: 0;
-    width: 100%;
-    background-color: black;
-    display: none; /* Initially hide the mobile menu */
-  }
-
-  .me-auto a {
-    width: 100%;
-    text-align: center;
-    padding: 10px; /* Adjust the padding as needed */
-    box-sizing: border-box;
-    color: white;
-  }
-
-  .mobile-menu-open .me-auto {
-    display: flex; /* Show the mobile menu when it's open */
-  }
-
-  .nav-link {
-    width: 100%; /* Allow links to take full width */
-    text-align: center; /* Center text in links */
-    color: white;
-  }
-
-  .mobile-menu-toggle {
-    display: block; /* Show the mobile menu toggle button */
-    color: white;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-
-  .mobile-menu-toggle:hover {
-    color: #007bff;
-  }
-
-  .mobile-menu-open {
-    display: flex;
-    flex-direction: column;
-  }
-}
-
-.menu{
-  /* // Styles here apply only to elements with the .menu class within the header */
-  width: 58px;
-  height: 58px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
 .right-block{
   flex-wrap: wrap;
   padding-top: 22px;
