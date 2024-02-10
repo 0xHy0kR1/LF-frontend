@@ -6,7 +6,8 @@ import { fetchFoundItems } from './../../utils/foundItemUtils';
 import { deleteLostItem } from '../services/lostItemService';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './FoundItems.css'
+import './FoundItems.css';
+import { motion } from "framer-motion";
 
 const FoundItems = (props) => {
 
@@ -57,13 +58,28 @@ const FoundItems = (props) => {
     window.scrollTo({top: 0, behavior: 'smooth'});
   };
 
+  const text = "No Found Items available.".split(" ");
+
   return (
     <div>
       <h2 className='text-center'>Found Items</h2>
       {props.foundLoading && <Spinner />}
       <div className="cards">
         {!props.foundLoading && props.foundItems && props.foundItems.every(item => item.isLost) ? (
-          <p>No found items available.</p>
+          text.map((el, i) => (
+            <motion.span
+              className="lost-item-mes-txt"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                duration: 0.25,
+                delay: i / 10
+              }}
+              key={i}
+            >
+              {el}
+            </motion.span>
+          ))
         ) : (
           <div className="item-list">
             {props.foundItems && props.foundItems.length > 0 && props.foundItems
