@@ -54,8 +54,8 @@
     justify-content: center;
 }
 .card {
-    border: 1px solid #ddd; /* Optional: Add a border to your cards */
-    transition: box-shadow 0.3s ease-in-out; /* Add a smooth transition effect to the box-shadow property */
+    border: 1px solid #ddd;
+    transition: box-shadow 0.3s ease-in-out; 
     width: 350px;
     height: 450px;
     overflow: hidden;
@@ -84,7 +84,7 @@
 }
 
 .card .card-img-container {
-    height: 70%; /* Adjust the height as needed */
+    height: 70%;
     overflow: hidden;
 }
   

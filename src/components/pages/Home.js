@@ -6,15 +6,36 @@ import signup from "./../../assets/signup.png";
 import list_items from "./../../assets/list_items.png";
 import "./Home.css";
 import { TypeAnimation } from "react-type-animation";
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
+import { motion } from "framer-motion"
 
 const Home = () => {
 
   // Check if the user is logged in (based on the presence of authToken)
   const isLoggedIn = !!localStorage.getItem('authToken');
 
+  const containerVariants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: { delay: 0.5, duration: 0.5}
+    },
+    exit: {
+      y: '100vh',
+      transition: { ease: 'easeinout'}
+    }
+  }
+
   return (
-    <div className="home-block">
+    <motion.div 
+      className="home-block"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       <Container fluid>
         <Row className="top-box">
           <Col className="mx-2">
@@ -105,7 +126,7 @@ const Home = () => {
           </Col>
         </Row>
       </Container>
-    </div>
+    </motion.div>
   );
 };
 
