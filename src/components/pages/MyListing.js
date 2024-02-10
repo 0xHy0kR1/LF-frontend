@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import LostItems from './LostItems'; // You may need to adjust the import path
-import FoundItems from './FoundItems'; // You may need to adjust the import path
+import LostItems from './LostItems';
+import FoundItems from './FoundItems';
 import Toast from 'react-bootstrap/Toast';
 import { jwtDecode } from "jwt-decode";
 import { fetchLostItems } from './../../utils/lostItemUtils';
-import { markItemAsFound } from './../services/foundItemService'; // Import the actual service function
+import { markItemAsFound } from './../services/foundItemService'; 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './MyListing.css'

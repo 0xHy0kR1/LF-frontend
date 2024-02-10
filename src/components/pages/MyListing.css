@@ -11,12 +11,21 @@
 }
 .toast-container {
     position: fixed;
-    bottom: 20px;
+    top: 220px;
     right: 20px;
 }
 .toast{
-    height: 14vh;
+    height: 100px;
 }
+@media (max-width: 589px) {
+  .toast,
+  .toast-container
+ {
+    height: 100px;
+    width: 250px;
+  }
+}
+
 .scroll-to-top-button-myListing {
     position: fixed;
     bottom: 20px;
