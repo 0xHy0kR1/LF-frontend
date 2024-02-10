@@ -70,9 +70,10 @@ function Login() {
           </Form.Group>
 
           <Button variant="success" className="login-submit-button" type="submit">
-            Create An Account
+            SIGN IN
           </Button>
         </Form>
+        <p className="bottom-text">Don't have an account? <span className='signup-text'><a href="/signup">Sign up</a></span></p>
       </Container>
     </motion.div>
   );
