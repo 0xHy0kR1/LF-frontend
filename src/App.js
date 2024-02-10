@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route, useLocation} from "react-router-dom";
+import { Routes, Route, useLocation} from "react-router-dom";
 import NavbarComponent from "./components/common/NavbarComponent"; // Correct import path
 import Home from "./components/pages/Home";
 import "./index.css";
@@ -10,7 +10,6 @@ import LostItems from "./components/pages/LostItems";
 import FoundItems from "./components/pages/FoundItems";
 import MyListing from "./components/pages/MyListing.js";
 import { fetchLostItems } from "./utils/lostItemUtils";
-import { fetchFoundItems } from "./utils/foundItemUtils.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion, AnimatePresence } from "framer-motion";
@@ -30,7 +29,6 @@ function App() {
 
   const closeBurgerMenu = () => {
     setBurgerClicked(false);
-    console.log("burgerClicked --> ", burgerClicked);
   };
 
   // Function to show an alert

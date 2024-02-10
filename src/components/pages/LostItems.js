@@ -68,7 +68,6 @@ const LostItems = (props) => {
         prevItems.map((item) => (item._id === itemId ? updatedItem : item))
       );
       if (updatedItem.success) {
-        console.log("Item created successfully");
         handleCloseUpdateModal();
         fetchLostItems(props.setLostLoading, props.setLostItems);
         toast.success(updatedItem.message);
@@ -85,7 +84,6 @@ const LostItems = (props) => {
     console.log("Inside handleDeleteItem function");
     try {
       const deleteResult = await deleteLostItem(itemId);
-      console.log("delte Result: ", deleteResult);
       // Remove the deleted item from the local state
       props.setLostItems((prevItems) => prevItems.filter((item) => item._id !== itemId));
       console.log("delete result: ", deleteResult);
@@ -127,7 +125,6 @@ const LostItems = (props) => {
   const handleAnswerSecurityQuestion = async (itemId, answer) => {
     try {
       const result = await answerSecurityQuestion(itemId, { securityQuestion: { answer }});
-      console.log("result value indeside handleAnswerSecurityQuestion: " + JSON.stringify(result));
       if (result.data && result.data.email) {
         setUserEmail(result.data.email);
         setShowEmail(true);
@@ -160,13 +157,8 @@ const LostItems = (props) => {
 
   // Check if the user is logged in (based on the presence of authToken)
   const isLoggedIn = !!localStorage.getItem('authToken');
-  console.log(isLoggedIn);
-  const handleCloseLoginToast = () => setShowLoginToast(false);
 
-  const cardVariants = {
-    hidden: { opacity: 0, width: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
+  const handleCloseLoginToast = () => setShowLoginToast(false);
 
   const text = "No Lost Items available.".split(" ");
   return (

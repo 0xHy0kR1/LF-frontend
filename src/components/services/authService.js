@@ -31,9 +31,7 @@ const loginUser = async (userData) => {
         });
 
         if(response.ok){
-            console.log("success");
             const result = await response.json();
-            console.log(result);
             return { success: true, message: 'Login successful', token: result.token };
         } else{
             return { success: false, message: 'Login failed' };

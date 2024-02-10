@@ -16,7 +16,6 @@ const MyListing = ({ showAlert, lostItems, setLostItems, lostLoading, setLostLoa
 
   const handleScroll = () => {
     setScrollY(window.scrollY);
-    console.log("scrollY value: ", scrollY);
   }
 
   useEffect(() => {
@@ -35,38 +34,28 @@ const MyListing = ({ showAlert, lostItems, setLostItems, lostLoading, setLostLoa
   // Get the current user's ID from your authToken 
   const authToken = localStorage.getItem('authToken');
   const decodedToken = jwtDecode(authToken);
-  console.log("decoded token value: ",decodedToken);
   const currentUserId = decodedToken.userId; // Adjust this based on your implementation
-  console.log("current user id: ",currentUserId);
   // Filter lost items based on the current user
-  console.log("item value: ",lostItems);
   const userLostItems = lostItems.filter((item) => item.user === currentUserId);
 
-  console.log("userLostItems value: ", userLostItems)
 
   const shouldDisplayToast = localStorage.getItem('userId') === currentUserId;
   // const isMyListingUserEqualToLostItemUser = 
     // Function to handle the "YES" button click in the toast(Adding logic to update the status of the item to "found" on the backend)
     const handleToastYesClick = async () => {
       
-      console.log("inside handleToastYesClick");
       // Filter lost items based on the current user and displayTitle
-      console.log("currentUserId value: " + currentUserId);
 
       // get the displayTitle from the localStorage
       const displayTitle = localStorage.getItem("displayTitle");
 
       const markFoundItem = lostItems.filter((item) => item.title === displayTitle);
-      console.log("markFoundItem value: " + JSON.stringify(markFoundItem))
-      console.log("markFoundItem object value: " + markFoundItem);
       
       if(markFoundItem.length > 0){
         const itemId = markFoundItem[0]._id; 
-        console.log("itemId value: " + itemId);
         try{
           // Call the function to mark the item as found
           const markAsFoundResult = await markItemAsFound(itemId);
-          console.log("markAsFoundResult value: " + JSON.stringify(markAsFoundResult));
           if(markAsFoundResult.success){
   
           
@@ -95,7 +84,6 @@ const MyListing = ({ showAlert, lostItems, setLostItems, lostLoading, setLostLoa
     }
 
     const handleScrollToTop = () => {
-      console.log("scroll top clicked")
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 

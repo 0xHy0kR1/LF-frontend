@@ -53,7 +53,6 @@ const UpdateItemModal = ({ show, handleClose, handleUpdateItemDetails, updateIte
       data.append('securityQuestion', securityJson);
 
       // Call the handleUpdateItemDetails function from your service
-      console.log("formData value: ", JSON.stringify(data));
       handleUpdateItemDetails(updateItemId, data);
 
       // Reset the form data and selected file
@@ -67,7 +66,6 @@ const UpdateItemModal = ({ show, handleClose, handleUpdateItemDetails, updateIte
       });
       setSelectedFile(null);
       
-      console.log("result value: ");
 
     };
 

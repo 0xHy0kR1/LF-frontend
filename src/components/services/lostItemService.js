@@ -31,7 +31,6 @@ export const createLostItem = async (data) => {
             return {success: false, message: 'Item creation failed'};
         }
     } catch(error){
-        console.log("inside catch");
         return {success: false, message: 'Item creation failed'};
     }
 }
@@ -59,7 +58,6 @@ export const updateLostItem = async (itemId, data) => {
 
         // Create a FormData object to handle the file upload
         const formData = new FormData();
-        console.log("Title value: "+data.get("title"));
         formData.append('image', data.get("image")); // Assuming your file input field is named 'image'
         formData.append('title', data.get("title"));
         formData.append('description', data.get("description"));
@@ -67,9 +65,6 @@ export const updateLostItem = async (itemId, data) => {
         formData.append('location', data.get("location"));
         formData.append('securityQuestion', data.get("securityQuestion"));
 
-        console.log("Inside lostItemService updateLostItem function");
-        console.log("data value inside updateLostItem: "+JSON.stringify(data));
-        console.log("data value inside updateLostItem: "+data);
         const response = await fetch(`${BASE_URL}/update/${itemId}`,{
             method: 'PUT',
             headers: {
@@ -78,7 +73,6 @@ export const updateLostItem = async (itemId, data) => {
             body: formData,
         });
 
-        console.log("response value inside updateLostItem: "+ JSON.stringify(response));
         if(response.ok){
             return { success: true, message: 'Lost item updated successfully' };
         } else{
@@ -92,14 +86,12 @@ export const updateLostItem = async (itemId, data) => {
 // Function to delete the lost item
 export const deleteLostItem = async (itemId) => {
     try{
-        console.log("Inside lostItemService: ");
         const response = await fetch(`${BASE_URL}/delete/${itemId}`,{
             method: 'DELETE',
             headers: {
                 authToken: authToken, // Include the authentication token in the header
             }
         });
-        console.log("Before response ok: ");
         if(response.ok){
             return { success: true, message: 'Lost item deleted successfully'};
         } else{

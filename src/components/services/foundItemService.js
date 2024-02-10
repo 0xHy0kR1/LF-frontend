@@ -17,7 +17,6 @@ export const markItemAsFound = async (itemId) => {
         
         if(response.ok){
             const data = await response.json(); // Parse the response as JSON
-            console.log("data value from markAsFound: ", data);
 
             return { success: true, message: data.message };
         } else{
@@ -37,7 +36,6 @@ export const getFoundItems = async () => {
         
         const response = await fetch(`${BASE_URL}/list-foundItems`);
         const data = await response.json();
-        console.log("value of data: "+ JSON.stringify(data));
         if(response.ok){
             return { success: true, message: 'Found items retrieved successfully', lostItems: data.lostItems};
         } else{

@@ -15,14 +15,12 @@ const FoundItems = (props) => {
 
   const handleScroll = () => {
     setScrollY(window.scrollY);
-    console.log("scrollY value: ", scrollY);
   }
 
   useEffect(() => {
-    console.log("Inside useEffect hook");
+
     props.setFoundItems([]);
     fetchFoundItems(props.setFoundLoading, props.setFoundItems);
-    console.log("found items: ", props.foundItems);
     // Now, log the updated value of foundItems
 
     window.addEventListener('scroll', handleScroll);
@@ -36,12 +34,10 @@ const FoundItems = (props) => {
   const handleDeleteItem = async (itemId) => {
     try {
       const deleteResult = await deleteLostItem(itemId);
-      console.log("delte Result: ", deleteResult);
 
       // Update the local state after deletion
       props.setFoundItems((prevItems) => prevItems.filter((item) => item._id !== itemId));
 
-      console.log("delete result: ", deleteResult);
       if(deleteResult.success) {
         toast.success(deleteResult.message);
       } else{
@@ -54,7 +50,6 @@ const FoundItems = (props) => {
   };
 
   const handleScrollToTopFoundItems = () => {
-    console.log("handle scroll function");
     window.scrollTo({top: 0, behavior: 'smooth'});
   };
 
