@@ -5,7 +5,7 @@ export const fetchLostItems = async (setLostLoading, setLostItems) => {
   try {
     setLostLoading(true); // Set loading to true when fetching starts
 
-    // Simulate a delay (e.g., 1 second) before fetching data
+    // Simulate a delay (0.5 second) before fetching data
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     const response = await getLostItems(); // Adjust this based on your actual API call
