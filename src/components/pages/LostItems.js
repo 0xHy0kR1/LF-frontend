@@ -164,19 +164,41 @@ const LostItems = (props) => {
   const handleCloseLoginToast = () => setShowLoginToast(false);
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, width: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
+  const text = "No Lost Items available.".split(" ");
   return (
-    <div >
+    <div 
+    >
       <h2  className='text-center'>Lost Items</h2>
       {props.lostLoading && <Spinner />} {/* Render the spinner while loading */}
       <div className="cards">
         {!props.lostLoading && props.lostItems.every(item => !item.isLost) ? (
-          <p>No Lost Items available.</p>
+          text.map((el, i) => (
+            <motion.span
+              className="lost-item-mes-txt"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                duration: 0.25,
+                delay: i / 10
+              }}
+              key={i}
+            >
+              {el}
+            </motion.span>
+          ))
         ) : (
-          props.lostItems.map((item) => (
+          <motion.div 
+          className="item-list"
+          initial={{ opacity: 0, width: 0 }}
+      animate={{ opacity: 1, width: "100%" }}
+      exit={{ opacity: 1, y: "-100vh" }}
+      transition={{ delay: 0.3, duration:2, type: 'spring'}}>
+          {props.lostItems && props.lostItems.length > 0 && props.lostItems
+            .filter(item => item.isLost).map((item) => (
             <div key={item._id} className="card-container">
               <Card key={item._id} className="custom-card" >
                 <Card.Img className="card-image" variant="top" src={item.imageUrl} alt={item.title} />
@@ -205,7 +227,8 @@ const LostItems = (props) => {
                 </Card.Body>
               </Card>
             </div>
-          ))
+          ))}
+          </motion.div>
         )}
       </div>
       <UpdateItemModal
@@ -256,12 +279,15 @@ const LostItems = (props) => {
         <Toast
           show={showLoginToast}
           onClose={handleCloseLoginToast}
+          className='toast-login-block'
           style={{
             position: 'fixed',
             top: 65,
             right: 20,
-            backgroundColor: 'red',
             color: 'white',
+            height: "5vh",
+            width: "250px",
+            background: "transparent"
           }}
         >
           <Toast.Header closeButton={false} className='lost-item-toast-modal-header'>

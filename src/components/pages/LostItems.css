@@ -121,25 +121,47 @@
   margin-left: auto;
   text-decoration: none;
 }
+.toast-login-block{
+  width: 250px;
+  height: 35px;
+  text-align: center;
+}
 .lost-item-toast-modal-header {
   background: #ffd9d9;
   color: #595356;
+  width: 250px;
+  height: 35px;
 }
 [data-theme="light"] .lost-item-toast-modal-header {
   background: #ffd9d9;
   color: #595356;
+  width: 250px;
+  height: 35px;
 }
 [data-theme="dark"] .lost-item-toast-modal-header {
   background: black;
   color: white;
+  width: 250px;
+  height: 35px;
 }
+.lost-item-toast-modal{
+  background-color: #ff0000;
+  color: #ffe7e7;
+  width: 250px;
+  height: 35px;
+}
+
 [data-theme="light"] .lost-item-toast-modal {
   background-color: #ff0000;
   color: #ffe7e7;
+  width: 250px;
+  height: 35px;
 }
 [data-theme="dark"] .lost-item-toast-modal {
   background-color: #30dd41;
   color: white;
+  width: 250px;
+  height: 35px;
 }
 .lost-item-toast-close-button {
   color: black;
@@ -164,4 +186,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.lost-item-mes-txt{
+  margin-right: 3px;
+}
+
+@media (max-width: 589px) {
+  .lost-item-toast-modal,
+  .lost-item-toast-modal-header
+ {
+    height: 35px;
+    width: 250px;
+  }
 }
