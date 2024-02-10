@@ -1,8 +1,14 @@
-.signup-container {
+.signup-block{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Adjust the height as needed */
+}
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
   }
 .signup-form{
     width: 300px;
@@ -64,4 +70,10 @@
     width: 260px;
     color: #cccfd1;
     font-weight: bolder;
+}
+
+.login-text a{
+    text-decoration: none;
+    font-weight: bold;
+    color: grey;
 }

@@ -7,10 +7,12 @@ import top from "./../../assets/cred-top.png";
 import authService from './../services/authService';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 function Signup(props) {
   
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -27,6 +29,7 @@ function Signup(props) {
     // Show the alert based on the signup result
     if(signupResult.success) {
       toast.success(signupResult.message);
+      navigate('/login');
     } else{
       toast.error(signupResult.message);
     }
@@ -67,6 +70,7 @@ const signupBlockVariant = {
             Create An Account
           </Button>
         </Form>
+        <p className="bottom-text">Already have an account? <span className='login-text'><a href="/login">Login instead</a></span></p>
       </Container>
     </motion.div>
   );
