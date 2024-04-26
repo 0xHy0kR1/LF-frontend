@@ -1,5 +1,5 @@
 // Define the base URL for your API
-const BASE_URL = 'http://localhost:5000/api/lost-items';
+const BASE_URL = `http://localhost:5000/api/lost-items`;
 
 const authToken = localStorage.getItem('Authorization');
 // Function to create a new lost item
