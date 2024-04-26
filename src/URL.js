@@ -1,0 +1,1 @@
+export const baseURL = `https://lf-backend-2o6i.onrender.com`
