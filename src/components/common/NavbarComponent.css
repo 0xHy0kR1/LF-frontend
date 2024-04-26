@@ -1,0 +1,176 @@
+/* CSS for top burger button to toggle navbar */
+.burger-button{
+  position: fixed;
+  top: 20px;
+  left: 15px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border-style: none;
+  background: turquoise;
+  cursor: pointer;
+  color: white;
+
+}
+
+/* CSS to dynamically change the background and color of burger button */
+.black-bg{
+  background: white;
+  color: black;
+}
+
+.white-bg{
+  background: turquoise;
+  color: white;
+}
+
+/* Navbar block CSS */
+.nav-block {
+  z-index: 1;
+  position: fixed;
+  padding: 112px 0;
+  margin: 0;
+  display: flex;
+  align-items: center; 
+  width: 100%;
+  height: 100vh;
+  flex-direction: column;
+  background: linear-gradient(171deg, #000, #1c3136);
+}
+
+/* CSS for links in navbar */
+.nav-link {
+  width: 100%;
+  position: relative; /* Ensure the pseudo-element is positioned relative to the link */
+  color: white;
+  font-size: 1.3rem;
+}
+
+/* Underline effect */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px; /* Initial height of the underline */
+  background-color: white;
+  transition: width 0.3s ease-out; /* Adding a smooth transition effect on width */
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.post-item-button {
+  background-color: #007bff;
+  color: white;
+  display: block;
+  position: relative;
+  margin-right: 5px;
+  outline: none;
+  border: none;
+}
+
+.post-item-button:hover {
+  color: white;
+  background-color: #0b56a7;
+  box-shadow: 0px 0px 5px 0px rgba(0, 123, 255, 0.75); /* Add a box shadow on hover */
+  }
+
+[data-theme="light"] .post-item-button:hover {
+color: white;
+background-color: #0b56a7;
+box-shadow: 0px 0px 5px 0px rgba(0, 123, 255, 0.75); /* Add a box shadow on hover */
+}
+[data-theme="dark"] .post-item-button:hover {
+color: white;
+background-color: #007bff;
+box-shadow: 0px 0px 5px 0px rgba(0, 123, 255, 0.75); /* Add a box shadow on hover */
+color: rgb(233, 226, 226);
+}
+[data-theme="dark"] .post-item-button {
+  background-color: black;
+  color: white;
+  font-weight: bolder;
+  outline: none;
+  border: none;
+
+}
+[data-theme="light"] .post-item-button {
+  background-color: #007bff;
+  color: white;
+  font-weight: bolder;
+  outline: none;
+  border: none;
+}
+
+.logout-button{
+  background-color: red;
+  width: 75px;
+  color: white;
+  font-weight: bolder;
+  border: none;
+  margin: 0 18px;
+}
+
+[data-theme="dark"] .logout-button{
+  background-color: #60d17d;
+  width: 75px;
+  color: black;
+  font-weight: bolder;
+  border: none;
+}
+[data-theme="dark"] .logout-button:hover{
+  background-color: red;
+  width: 75px;
+  color: white;
+  font-weight: bolder;
+  border: none;
+}
+[data-theme="light"] .logout-button{
+  background-color: #dc3545;
+  width: 75px;
+  color: #fff;
+  font-weight: bolder;
+}
+[data-theme="light"] .logout-button:hover{
+  background-color: red;
+  width: 75px;
+  color: #cccfd1;
+  font-weight: bolder;
+}
+
+.me-auto{
+  display: flex;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100%;
+  height: 100%;
+}
+
+.block-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.right-block{
+  flex-wrap: wrap;
+  padding-top: 22px;
+  padding: 22px 22px 22px 0;
+  margin-bottom: 22px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.button-block{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

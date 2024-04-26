@@ -1,0 +1,86 @@
+.lost-items-block{
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    margin-top: 10px;
+}
+.found-items-block{
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+.toast-container {
+    position: fixed;
+    top: 220px;
+    right: 20px;
+}
+.toast{
+    height: 100px;
+}
+@media (max-width: 589px) {
+  .toast,
+  .toast-container
+ {
+    height: 100px;
+    width: 250px;
+  }
+}
+
+.scroll-to-top-button-myListing {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .scroll-to-top-button-myListing:hover {
+    background-color: #0056b3;
+  }
+  
+  [data-theme="light"] .scroll-to-top-button-myListing {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  [data-theme="dark"] .scroll-to-top-button-myListing {
+    background-color: #60d17d;
+    color: #132818;
+    font-weight: bolder;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 20px;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }

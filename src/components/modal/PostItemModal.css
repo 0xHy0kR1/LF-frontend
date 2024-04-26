@@ -1,0 +1,52 @@
+[data-theme="dark"] .post-item-modal {
+    background: black;
+    color: white;
+  }
+  
+  [data-theme="light"] .post-item-modal {
+    background: white;
+    color: #2c3842;
+  }
+  
+  [data-theme="dark"] .answer-modal-input{
+    background-color: #2c3842;
+    color: #cccfd1;
+    border: none;
+    outline: none;
+}
+
+[data-theme="light"] .answer-modal-input{
+    background-color: white;
+    color: #2c3842;
+    outline: 1px solid black;
+}
+
+/* input box placeholder css */
+[data-theme="dark"] .answer-modal-input::placeholder {
+    color: #cccfd1; /* Set your dark theme color */
+}
+[data-theme="light"] .answer-modal-input::placeholder {
+    color: #212d37; /* Set your dark theme color */
+}
+
+.post-item-close-button {
+    color: black;
+    font-size: 20px;
+    margin-left: auto;
+    text-decoration: none;
+    
+}
+[data-theme="light"] .post-item-close-button {
+    color: black;
+    font-size: 20px;
+    margin-left: auto;
+    text-decoration: none;
+    
+}
+[data-theme="dark"] .post-item-close-button {
+    color: white;
+    font-size: 20px;
+    margin-left: auto;
+    text-decoration: none;
+    
+}

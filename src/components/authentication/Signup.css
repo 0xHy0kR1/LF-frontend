@@ -1,0 +1,79 @@
+.signup-block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+.signup-form{
+    width: 300px;
+    height: 400px;
+    border: 2px solid #212d37;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    padding: 12px 0px
+}
+.top-img{
+    width: 150px;
+    height: 200px;
+}
+.signup-input-block{
+    width: 260px;
+}
+.singup-input{
+    height: 40px;
+}
+[data-theme="dark"] .signup-input{
+    background-color: #2c3842;
+    color: #cccfd1;
+    border: none;
+    outline: none;
+}
+
+[data-theme="light"] .signup-input{
+    background-color: white;
+    color: #2c3842;
+    outline: 1px solid black;
+}
+
+/* input box placeholder css */
+[data-theme="dark"] .signup-input::placeholder {
+    color: #cccfd1; /* Set your dark theme color */
+  }
+[data-theme="light"] .signup-input::placeholder {
+    color: #212d37; /* Set your dark theme color */
+  }
+
+.signup-submit-button{
+    background-color: #212d37;
+    width: 260px;
+    color: #cccfd1;
+    font-weight: bolder;
+}
+
+[data-theme="dark"] .signup-submit-button{
+    background-color: #60d17d;
+    width: 260px;
+    color: #132818;
+    font-weight: bolder;
+}
+[data-theme="light"] .signup-submit-button{
+    background-color: #212d37;
+    width: 260px;
+    color: #cccfd1;
+    font-weight: bolder;
+}
+
+.login-text a{
+    text-decoration: none;
+    font-weight: bold;
+    color: grey;
+}

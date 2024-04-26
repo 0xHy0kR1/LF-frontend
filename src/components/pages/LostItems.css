@@ -1,0 +1,202 @@
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+.custom-card {
+  width: 18rem;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-body {
+  flex: 1; /* This will make the card body take up the remaining space */
+}
+
+.card-image {
+  width: 100%; 
+  height: 100%;
+  object-fit: cover;
+}
+
+.scroll-to-top-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.scroll-to-top-button:hover {
+  background-color: #0056b3;
+}
+
+[data-theme="light"] .scroll-to-top-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+[data-theme="dark"] .scroll-to-top-button {
+  background-color: #60d17d;
+  color: #132818;
+  font-weight: bolder;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 20px;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+[data-theme="light"] .email-modal-header {
+  background: white;
+  color: black;
+}
+[data-theme="dark"] .email-modal-header {
+  background: black;
+  color: white;
+}
+
+[data-theme="light"] .email-modal {
+  background-color: white;
+  color: #132818;
+  font-weight: bolder;
+}
+[data-theme="dark"] .email-modal {
+  background-color: black;
+  color: #fff;
+  font-weight: bolder;
+}
+
+.email-close-button {
+  color: black;
+  font-size: 20px;
+  margin-left: auto;
+  text-decoration: none;
+}
+[data-theme="light"] .email-close-button {
+  color: black;
+  font-size: 20px;
+  margin-left: auto;
+  text-decoration: none;
+}
+[data-theme="dark"] .email-close-button {
+  color: white;
+  font-size: 20px;
+  margin-left: auto;
+  text-decoration: none;
+}
+.toast-login-block{
+  width: 250px;
+  height: 35px;
+  text-align: center;
+}
+.lost-item-toast-modal-header {
+  background: #ffd9d9;
+  color: #595356;
+  width: 250px;
+  height: 35px;
+}
+[data-theme="light"] .lost-item-toast-modal-header {
+  background: #ffd9d9;
+  color: #595356;
+  width: 250px;
+  height: 35px;
+}
+[data-theme="dark"] .lost-item-toast-modal-header {
+  background: black;
+  color: white;
+  width: 250px;
+  height: 35px;
+}
+.lost-item-toast-modal{
+  background-color: #ff0000;
+  color: #ffe7e7;
+  width: 250px;
+  height: 35px;
+}
+
+[data-theme="light"] .lost-item-toast-modal {
+  background-color: #ff0000;
+  color: #ffe7e7;
+  width: 250px;
+  height: 35px;
+}
+[data-theme="dark"] .lost-item-toast-modal {
+  background-color: #30dd41;
+  color: white;
+  width: 250px;
+  height: 35px;
+}
+.lost-item-toast-close-button {
+  color: black;
+  font-size: 20px;
+  margin-left: auto;
+  text-decoration: none;
+}
+[data-theme="light"] .lost-item-toast-close-button {
+  color: black;
+  font-size: 20px;
+  margin-left: auto;
+  text-decoration: none;
+}
+[data-theme="dark"] .lost-item-toast-close-button {
+  color: white;
+  font-size: 20px;
+  margin-left: auto;
+  text-decoration: none;
+}
+
+.bottom-card-button{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lost-item-mes-txt{
+  margin-right: 3px;
+}
+
+@media (max-width: 589px) {
+  .lost-item-toast-modal,
+  .lost-item-toast-modal-header
+ {
+    height: 35px;
+    width: 250px;
+  }
+}
