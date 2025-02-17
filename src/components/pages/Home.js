@@ -2,13 +2,13 @@ import { React, useState } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import home_top_right from "./../../assets/home-top-right.png";
 import home_about_right from "./../../assets/home-about.png";
-import notification from "./../../assets/notification.png";
-import signup from "./../../assets/signup.png";
-import list_items from "./../../assets/list_items.png";
 import "./Home.css";
 import { TypeAnimation } from "react-type-animation";
 import { Link, } from "react-router-dom";
 import { motion } from "framer-motion"
+import VideoModal from "./../modal/VideoModal"; // Import the VideoModal component
+import Reviews from "./Reviews/Reviews";
+
 // Dynamically import all images from the assets folder
 const importAll = (r) => {
   let images = {};
@@ -20,20 +20,20 @@ const importAll = (r) => {
 const images = importAll(require.context("./../../assets", false, /\.(png|jpe?g|svg)$/));
 
 const serviceVideos = {
-  windowBlinds: "/assets/videos/window-blinds.mp4",
-  modularKitchen: "/assets/videos/modular-kitchen.mp4",
-  modularFalseCeiling: "/assets/videos/modular-false-ceiling.mp4",
-  wallPanels: "/assets/videos/wall-panels.mp4",
-  wardrobes: "/assets/videos/wardrobes.mp4",
-  glassPartitions: "/assets/videos/glass-partitions.mp4",
-  flooring: "/assets/videos/flooring.mp4",
-  wallpapers: "/assets/videos/wallpapers.mp4",
-  mosquitoNet: "/assets/videos/mosquito-net.mp4",
-  bathroomInteriors: "/assets/videos/bathroom-interiors.mp4",
-  officeInteriors: "/assets/videos/office-interiors.mp4",
-  bedroomInteriors: "/assets/videos/bedroom-interiors.mp4",
-  livingRoom: "/assets/videos/living-room.mp4",
-  outdoorShades: "/assets/videos/outdoor-shades.mp4",
+  windowBlinds: require("../../assets/videos/window-blinds.mp4"),
+  modularKitchen: require("../../assets/videos/modular-kitchen.mp4"),
+  modularFalseCeiling: require("../../assets/videos/modular-false-ceiling.mp4"),
+  wallPanels: require("../../assets/videos/wall-panels.mp4"),
+  wardrobes: require("../../assets/videos/wardrobes.mp4"),
+  glassPartitions: require("../../assets/videos/glass-partitions.mp4"),
+  flooring: require("../../assets/videos/flooring.mp4"),
+  wallpapers: require("../../assets/videos/wallpapers.mp4"),
+  mosquitoNet: require("../../assets/videos/mosquito-net.mp4"),
+  bathroomInteriors: require("../../assets/videos/bathroom-interiors.mp4"),
+  officeInteriors: require("../../assets/videos/office-interiors.mp4"),
+  bedroomInteriors: require("../../assets/videos/bedroom-interiors.mp4"),
+  livingRoom: require("../../assets/videos/living-room.mp4"),
+  outdoorShades: require("../../assets/videos/outdoor-shades.mp4"),
 };
 
 const services = Object.keys(serviceVideos).map((key) => ({
@@ -63,9 +63,17 @@ const Home = () => {
 
   // Our Services stuff
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [selectedVideoTitle, setSelectedVideoTitle] = useState(""); // Store video title
 
-  const openVideo = (video) => setSelectedVideo(video);
-  const closeVideo = () => setSelectedVideo(null);
+  const openVideo = (video, title) => {
+    setSelectedVideo(video);
+    setSelectedVideoTitle(title); // Set the title of the selected video
+  };
+
+  const closeVideo = () => {
+    setSelectedVideo(null);
+    setSelectedVideoTitle(""); // Reset title when modal closes
+  };
 
   return (
     <motion.div 
@@ -134,6 +142,7 @@ const Home = () => {
 <hr className="section-divider" />
 
 {/* Our Services section start */}
+<Row>
           <Col>
             <h2 className="Our-services-heading">Our Services</h2>
           </Col>
@@ -143,11 +152,13 @@ const Home = () => {
             const imageSrc = images[imageName] || images["default.jpg"];
             return (
               <Col key={index} md={4} className="card-box">
-                <Card className="card" onClick={() => openVideo(service.video)}>
+                <Card className="card" onClick={() => openVideo(service.video, service.title)}>
                   <Card.Img className="card-img-container" variant="top" src={imageSrc} alt={service.title} />
                   <Card.Body>
                     <Card.Title>{service.title}</Card.Title>
-                    <Button variant="primary">View Sample</Button>
+                    <Button variant="primary" onClick={() => openVideo(service.video, service.title)}>
+  View Sample
+</Button>
                   </Card.Body>
                 </Card>
               </Col>
@@ -170,13 +181,28 @@ const Home = () => {
       )}
           
         </Row>
-        {/* Our Services Section  */}
+        {/* Our Services Section end  */}
+        </Row>
+        {/* What our customer say? */}
+        {/* Testimonial */}
+<Row>
+          <Col>
+            <h2 className="how-work-head">What Our Customers Say?</h2>
+          </Col>
+        </Row>
+        <Reviews onStartPerformance={() => console.log("")} onEndPerformance={() => console.log("")} />
 
-        {/* What Our customers say section start*/}
         
       </Container>
+      <VideoModal 
+  show={!!selectedVideo} 
+  handleClose={closeVideo} 
+  videoSrc={selectedVideo} 
+  videoTitle={selectedVideoTitle} // Pass the title to modal
+/>
     </motion.div>
   );
 };
+
 
 export default Home;

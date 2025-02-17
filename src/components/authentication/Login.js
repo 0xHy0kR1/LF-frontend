@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import React, {useState} from 'react';
 import './Login.css'; 
-import top from "./../../assets/cred-top.png";
+// import top from "./../../assets/cred-top.png";
 import authService from './../services/authService'
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
@@ -61,7 +61,7 @@ function Login() {
     <motion.div className="signup-block" variants={loginBlockVariant} initial="hidden" animate="visible" exit="hidden">
       <Container className='login-container'>
         <Form className='login-form' onSubmit={handleSubmit}>
-          <img src={top} alt="cred-dark" className='top-img'/>
+          {/* <img src={top} alt="cred-dark" className='top-img'/> */}
           <Form.Group className="mb-4 login-input-block" controlId="formBasicEmail">
             <Form.Control className="login-input" type="email" placeholder="email address" onChange={(e) => setEmail(e.target.value)}/>
           </Form.Group>

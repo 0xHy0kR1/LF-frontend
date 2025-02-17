@@ -3,7 +3,6 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { updateLostItem, deleteLostItem, answerSecurityQuestion, viewLostItem } from './../services/lostItemService';
-import SecurityQuestionModal from './../modal/SecurityQuestionModal';
 import './LostItems.css';
 import Spinner from './../common/Spinner';
 import { fetchLostItems } from './../../utils/lostItemUtils';
@@ -230,14 +229,14 @@ const LostItems = (props) => {
         updateItemId={updateItemId}
       />
       {/* Modal for answering security question */}
-      {showSecurityQuestionModal && securityQuestion && (
+      {/* {showSecurityQuestionModal && securityQuestion && (
         <SecurityQuestionModal
           show={showSecurityQuestionModal}
           handleClose={handleCloseSecurityQuestionModal}
           onSubmit={(answer) => handleAnswerSecurityQuestion(selectedItemId, answer)}
           securityQuestion={securityQuestion}
         />
-      )}
+      )} */}
 
       {/* Modal for displaying the email */}
       <Modal show={showEmail} onHide={handleCloseEmailModal}>

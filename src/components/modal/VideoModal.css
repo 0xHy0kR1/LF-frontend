@@ -1,0 +1,35 @@
+.video-modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+  }
+  
+  .video-modal-body video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .video-modal-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .share-dropdown {
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+  }
+  
+  .share-dropdown .dropdown-item {
+    font-size: 14px;
+    padding: 10px;
+  }
+  
+  .share-dropdown .dropdown-item:hover {
+    background-color: #0056b3;
+    color: white;
+  }
+  

@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import React from 'react';
 import './Signup.css'; 
-import top from "./../../assets/cred-top.png";
+// import top from "./../../assets/cred-top.png";
 import authService from './../services/authService';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -53,7 +53,7 @@ const signupBlockVariant = {
     <motion.div className="signup-block" variants={signupBlockVariant} initial="hidden" animate="visible" exit="hidden">
       <Container className='signup-container'>
         <Form className='signup-form' onSubmit={handleSubmit}>
-        <img src={top} alt="cred-dark" className='top-img'/>
+        {/* <img src={top} alt="cred-dark" className='top-img'/> */}
           <Form.Group className="mb-4 signup-input-block" controlId="formBasicEmail">
             <Form.Control className="signup-input" name="username" type="text" placeholder="username" />
           </Form.Group>

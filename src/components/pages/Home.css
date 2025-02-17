@@ -5,7 +5,7 @@
     margin: 0;
     padding: 0;
 }
-Home Section
+/* Home Section */
 .top-box{
     display: flex;
     align-items: center;
@@ -13,7 +13,7 @@ Home Section
     flex-direction: row;
     padding: 40px 60px;
     width: 100%;
-    height: auto;
+    height: 100%;
     box-sizing: border-box;
 }
 .top-left-text{
@@ -58,6 +58,7 @@ Home Section
     justify-content: space-between;
     padding: 40px 80px; /* Ensure same padding as .top-box */
     gap: 80px;
+    height: 100%;
 }
 
 .about-text {
