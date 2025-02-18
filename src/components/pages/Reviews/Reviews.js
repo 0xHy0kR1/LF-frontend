@@ -1,156 +1,107 @@
-import React, { useEffect, useState } from "react";
-import Marquee from "react-marquee-slider";
-import styled from "styled-components";
-import times from "lodash/times";
-import { withSize } from "react-sizeme";
-import { nanoid } from "nanoid";
+import React from "react";
+import Marquee from "react-fast-marquee";
 import { BsInstagram } from "react-icons/bs";
-import { FaImdb } from "react-icons/fa";
+import styled from "styled-components";
+import JulieRyan from "../../../assets/avatars/Julie_Ryan.png";
+import AlexSmith from "../../../assets/avatars/alex_smith.png";
+import MartinScorsese from "../../../assets/avatars/Martin_Scorsese.png";
+import ChristopherNolan from "../../../assets/avatars/Christopher_Nolan.png";
+import QuentinTarantino from "../../../assets/avatars/Quentin_Tarantino.png";
 import FullWidth from "./FullWidth";
 
-const Height = styled.div`
-  position: relative;
-  width: 100%;
-  height: ${(props) => (props.height ? props.height + "px" : "auto")};
-`;
-
-
-const Box = styled.div`
-  padding: ${(props) => props.scale * 25}px;
-`;
-
-const Review = styled.div`
-  width: ${(props) => props.scale * 350}px;
+const ReviewContainer = styled.div`
   display: flex;
-  padding: ${(props) => props.scale * 25}px;
-  background: #fff;
-  border-radius: 4px;
-  box-shadow: 0 7px 20px 0 rgba(0, 0, 0, 0.12);
+  align-items: center;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  min-width: 400px; /* Ensures reviews are wide enough */
+  max-width: 450px;
 `;
 
-const Avatar = styled.div`
+const Avatar = styled.img`
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  width: ${(props) => props.scale * 58}px;
-  height: ${(props) => props.scale * 58}px;
-  overflow: hidden;
-  flex-shrink: 0;
-  margin-right: ${(props) => props.scale * 15}px;
-
-  img {
-    max-width: 100%;
-  }
+  margin-right: 15px;
+  border: 3px solid #333; /* Slightly thicker border */
 `;
 
-const Content = styled.div`
-  p {
-    margin: 0;
-    color: #444;
-    font-family: Helvetica, sans-serif;
-    font-size: ${(props) => props.scale * 14}px;
-    line-height: ${(props) => props.scale * 20}px;
-    font-weight: 100;
-    text-align: left;
-  }
+const ReviewText = styled.p`
+  font-size: 16px;
+  color: #555;
+  margin: 5px 0;
 `;
 
-const portraits = [
-  "../../../../src/assets/avatars/Julie_Ryan.png",
-  "../../../../src/assets/avatars/alex_smith.png",
-  "../../../../src/assets/avatars/Martin_Scorsese.png",
-  "../../../../src/assets/avatars/Christopher_Nolan.png",
-  "../../../../src/assets/avatars/Quentin_Tarantino.png",
+const ReviewerName = styled.h4`
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #222;
+`;
+
+const InstagramLink = styled.a`
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  margin-top: 5px;
+`;
+
+const reviewerData = [
+  {
+    name: "Julie Ryan",
+    avatar: JulieRyan,
+    review: "PlotWriter's AI Co-Pilot Editor and analytics have transformed my scriptwriting. Highly recommended!",
+    insta: "https://www.instagram.com/julieryan99",
+  },
+  {
+    name: "Alex Smith",
+    avatar: AlexSmith,
+    review: "The AI tools are exceptional, making my writing process faster and more enjoyable.",
+    insta: "https://www.instagram.com/alexpsmith/",
+  },
+  {
+    name: "Martin Scorsese",
+    avatar: MartinScorsese,
+    review: "PlotWriter's analytics and AI suggestions offer fresh perspectives and help improve my scripts.",
+    insta: "https://www.instagram.com/martinscorsese_/",
+  },
+  {
+    name: "Christopher Nolan",
+    avatar: ChristopherNolan,
+    review: "The AI Co-Pilot Editor helps overcome writer’s block with creative prompts. A must-have for scriptwriters.",
+    insta: "https://www.instagram.com/christophernolann/",
+  },
+  {
+    name: "Quentin Tarantino",
+    avatar: QuentinTarantino,
+    review: "PlotWriter's pitch deck builder is intuitive and the AI suggestions are spot on. A huge timesaver.",
+    insta: "https://www.instagram.com/tarantinoxx/",
+  },
 ];
 
-const reviewerNames = [
-  "Julie Ryan",
-  "Alex Smith",
-  "Martin Scorsese",
-  "Christopher Nolan",
-  "Quentin Tarantino",
-];
-
-const reviewsText = [
-  "PlotWriter's AI Co-Pilot Editor and analytics have transformed my scriptwriting. Highly recommended!",
-  "The AI tools are exceptional, making my writing process faster and more enjoyable.",
-  "PlotWriter's analytics and AI suggestions offer fresh perspectives and help improve my scripts.",
-  "The AI Co-Pilot Editor helps overcome writer’s block with creative prompts. A must-have for scriptwriters.",
-  "PlotWriter's pitch deck builder is intuitive and the AI suggestions are spot on. A huge timesaver.",
-];
-
-const reviewerInsta = [
-  "https://www.instagram.com/julieryan99",
-  "https://www.instagram.com/alexpsmith/",
-  "https://www.instagram.com/martinscorsese_/",
-  "https://www.instagram.com/christophernolann/",
-  "https://www.instagram.com/tarantinoxx/",
-];
-
-const reviewerImdb = [
-  "https://www.imdb.com/name/nm0752646/",
-  "https://www.imdb.com/name/nm0807243/",
-  "https://www.imdb.com/name/nm0000217/",
-  "https://www.imdb.com/name/nm0634240/",
-  "https://www.imdb.com/name/nm0000233/",
-];
-
-const Reviews = ({ size, onStartPerformance, onEndPerformance }) => {
-  const [key, setKey] = useState(nanoid());
-
-  useEffect(() => {
-    setKey(nanoid());
-  }, [size, setKey]);
-
-  let scale = 0.5;
-
-  if (size && size.width > 800) {
-    scale = 0.65;
-  }
-
-  if (size && size.width > 1100) {
-    scale = 0.8;
-  }
-
-  if (size && size.width > 1400) {
-    scale = 1;
-  }
-
+const Reviews = () => {
   return (
     <FullWidth>
-      <Height height={600}>
-        <Marquee
-          key={key}
-          velocity={25}
-          scatterRandomly
-          onInit={onStartPerformance}
-          onFinish={onEndPerformance} 
-          direction={"ltr"} 
-          resetAfterTries={0}>
-          {reviewsText.map((review, index) => (
-              <Box key={`marquee-example-review-${index}`} scale={scale}>
-                <Review scale={scale}>
-                  <Avatar scale={scale}>
-                    <img src={portraits[index]} alt={reviewerNames[index]} />
-                  </Avatar>
-                  <Content scale={scale}>
-                    <div className="personal-info">
-                      <h3 className="text-xl text-black">{reviewerNames[index]}</h3>
-                      <p>{review}</p>
-                      <a href={reviewerInsta[index]} target="_blank" rel="noopener noreferrer">
-                      <BsInstagram size={24} color="black" />
-                      </a>
-                      <a href={reviewerImdb[index]} target="_blank" rel="noopener noreferrer">
-                        <FaImdb size={24} color="black"/>
-                      </a>
-                    </div>
-                  </Content>
-                </Review>
-              </Box>
-            ))}
-        </Marquee>
-      </Height>
+      <Marquee speed={50} pauseOnHover gradient={false}>
+        {reviewerData.map((reviewer, index) => (
+          <ReviewContainer key={index}>
+            <Avatar src={reviewer.avatar} alt={reviewer.name} />
+            <div>
+              <ReviewerName>{reviewer.name}</ReviewerName>
+              <ReviewText>{reviewer.review}</ReviewText>
+              <InstagramLink href={reviewer.insta} target="_blank" rel="noopener noreferrer">
+                <BsInstagram size={20} color="black" style={{ marginRight: "5px" }} />
+                Follow
+              </InstagramLink>
+            </div>
+          </ReviewContainer>
+        ))}
+      </Marquee>
     </FullWidth>
   );
 };
 
-// will end in a loop without React.memo
-export default React.memo(withSize()(Reviews));
+export default Reviews;

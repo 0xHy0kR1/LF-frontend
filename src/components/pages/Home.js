@@ -8,6 +8,8 @@ import { Link, } from "react-router-dom";
 import { motion } from "framer-motion"
 import VideoModal from "./../modal/VideoModal"; // Import the VideoModal component
 import Reviews from "./Reviews/Reviews";
+import { withSize } from 'react-sizeme';
+import TestMarquee from "./Reviews/TestMarquee";
 
 // Dynamically import all images from the assets folder
 const importAll = (r) => {
@@ -190,9 +192,7 @@ const Home = () => {
             <h2 className="how-work-head">What Our Customers Say?</h2>
           </Col>
         </Row>
-        <Reviews onStartPerformance={() => console.log("")} onEndPerformance={() => console.log("")} />
-
-        
+        <Reviews />
       </Container>
       <VideoModal 
   show={!!selectedVideo} 
