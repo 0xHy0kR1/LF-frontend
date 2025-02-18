@@ -4,11 +4,11 @@ import { Routes, Route, useLocation} from "react-router-dom";
 import NavbarComponent from "./components/common/NavbarComponent"; // Correct import path
 import Home from "./components/pages/Home";
 import "./index.css";
-import Signup from "./components/authentication/Signup";
-import Login from "./components/authentication/Login";
-import LostItems from "./components/pages/LostItems";
-import FoundItems from "./components/pages/FoundItems";
-import MyListing from "./components/pages/MyListing.js";
+// import Signup from "./components/authentication/Signup";
+// import Login from "./components/authentication/Login";
+// import LostItems from "./components/pages/LostItems";
+// import FoundItems from "./components/pages/FoundItems";
+// import MyListing from "./components/pages/MyListing.js";
 import { fetchLostItems } from "./utils/lostItemUtils";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -87,45 +87,6 @@ function App() {
               <AnimatePresence>
               <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<Home />} />
-                <Route path="/Signup" element={<Signup />} />
-                <Route path="/Login" element={<Login />} />
-                <Route
-                  path="/lost"
-                  element={
-                    <LostItems
-                      setLostItems={setLostItems}
-                      setLostLoading={setLostLoading}
-                      lostItems={lostItems}
-                      lostLoading={lostLoading}
-                    />
-                  }
-                />
-                <Route
-                  path="/found"
-                  element={
-                    <FoundItems
-                      setFoundItems={setFoundItems}
-                      setFoundLoading={setFoundLoading}
-                      foundItems={foundItems}
-                      foundLoading={foundLoading}
-                    />
-                  }
-                />
-                <Route
-                  path="/my-listing"
-                  element={
-                    <MyListing
-                      setLostItems={setLostItems}
-                      setFoundItems={setFoundItems}
-                      setLostLoading={setLostLoading}
-                      setFoundLoading={setFoundLoading}
-                      lostItems={lostItems}
-                      foundItems={foundItems}
-                      lostLoading={lostLoading}
-                      foundLoading={foundLoading}
-                    />
-                  }
-                />
               </Routes>
               </AnimatePresence>
           </>

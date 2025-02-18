@@ -6,7 +6,7 @@ import "./Home.css";
 import { TypeAnimation } from "react-type-animation";
 import { Link, } from "react-router-dom";
 import { motion } from "framer-motion"
-import VideoModal from "./../modal/VideoModal"; // Import the VideoModal component
+import VideoModal from "../modal/VideoModal"; // Import the VideoModal component
 import Reviews from "./Reviews/Reviews";
 import { withSize } from 'react-sizeme';
 import TestMarquee from "./Reviews/TestMarquee";
@@ -187,12 +187,12 @@ const Home = () => {
         </Row>
         {/* What our customer say? */}
         {/* Testimonial */}
-<Row>
+        <Row>
           <Col>
             <h2 className="how-work-head">What Our Customers Say?</h2>
           </Col>
         </Row>
-        <Reviews />
+        <ReviewsWithSize onStartPerformance={() => {console.log("");}} onEndPerformance={() => {console.log("");}} />
       </Container>
       <VideoModal 
   show={!!selectedVideo} 
@@ -204,5 +204,6 @@ const Home = () => {
   );
 };
 
+const ReviewsWithSize = withSize()(Reviews);
 
 export default Home;
