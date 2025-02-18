@@ -192,7 +192,7 @@ const Home = () => {
             <h2 className="how-work-head">What Our Customers Say?</h2>
           </Col>
         </Row>
-        <ReviewsWithSize onStartPerformance={() => {console.log("");}} onEndPerformance={() => {console.log("");}} />
+        <Reviews/>
       </Container>
       <VideoModal 
   show={!!selectedVideo} 
