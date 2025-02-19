@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-// ty Chris https://css-tricks.com/full-width-containers-limited-width-parents/
+
 const FullWidth = styled.div`
-  width: 100vw;
+  width: calc(100vw - (100vw - 100%));
   position: relative;
   left: 50%;
   right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
+  margin-left: calc(-50vw + (100vw - 100%)/2); 
+  margin-right: calc(-50vw + (100vw - 100%)/2);
 `;
 
 export default FullWidth;

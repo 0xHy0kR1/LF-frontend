@@ -167,11 +167,11 @@ function NavbarComponent(props) {
                     </motion.div>
                     <motion.div className="block-link" variants={navItem}>
                       <Link
-                        to="/lost"
+                        to="/portfolio"
                         className="nav-link"
                         onClick={closeBurgerMenu}
                       >
-                        Lost Items
+                        Portfolio
                       </Link>
                     </motion.div>
                     <motion.div className="block-link" variants={navItem}>

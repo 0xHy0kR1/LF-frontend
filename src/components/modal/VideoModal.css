@@ -4,7 +4,10 @@
     align-items: center;
     background-color: #000;
   }
-  
+
+  .video-title{
+    color: black;
+  }
   .video-modal-body video {
     width: 100%;
     height: auto;

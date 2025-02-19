@@ -14,6 +14,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { jwtDecode } from "jwt-decode";
+import Footer from "./components/common/Footer";
+import Portfolio from "./components/pages/Portfolio";
 
 function App() {
   const [lostItems, setLostItems] = useState([]);
@@ -87,10 +89,13 @@ function App() {
               <AnimatePresence>
               <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<Home />} />
+                <Route path="/portfolio" element={<Portfolio />} />
               </Routes>
               </AnimatePresence>
           </>
+
         )}
+        <Footer />
       </motion.div>      
   );
 }

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@800;1000&family=Quicksand:wght@600&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 * {
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
@@ -11,7 +12,8 @@
     align-items: center;
     justify-content: flex-start;
     flex-direction: row;
-    padding: 40px 60px;
+    margin: 0;
+    padding: 0; 
     width: 100%;
     height: 100%;
     box-sizing: border-box;
@@ -56,9 +58,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 40px 80px; /* Ensure same padding as .top-box */
-    gap: 80px;
+    padding: 0; /* Ensure same padding as .top-box */
+    margin: 0;
     height: 100%;
+    border: 2px solid blue;
+    width: 100%;
 }
 
 .about-text {
@@ -70,6 +74,7 @@
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 10px;
+    font-family: 'Nunito', sans-serif;
 }
 
 .about-tagline {
@@ -77,6 +82,7 @@
     font-weight: 600;
     color: #157347;
     margin-bottom: 15px;
+    
 }
 
 .about-text p {
@@ -92,7 +98,7 @@
 
 .about-img {
     width: 100%;
-    max-width: 450px;
+    max-width: 420px;
     border-radius: 10px;
     /* width: 100%;
     height: 90%; */
@@ -123,12 +129,17 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+
+    border: 2px solid black;
 }
 .card-box{
     display: flex;
     justify-content: center;
-    width: 25%;
-    height: 25%;
+    width: 30%; /* Adjust for better spacing */
+    margin-bottom: 40px; /* Add more space between rows of cards */
+    
 }
 .card {
     border: 1px solid #ddd;
@@ -138,6 +149,11 @@
     max-width: 400px;
     max-height: 400px;
     overflow: hidden;
+}
+
+.card-title{
+    font-family: "Roboto", serif;
+  font-optical-sizing: auto;
 }
 
 .card:hover{
@@ -186,4 +202,11 @@
 .card1-bottom-button:hover{
     background-color: #157347;
     color: white;
+}
+
+/* Testimonial section */
+.testimonial-h2{
+    font-weight: bolder;
+    font-family: 'Nunito', sans-serif;
+    text-align: center;
 }

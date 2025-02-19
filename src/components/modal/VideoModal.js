@@ -53,7 +53,7 @@ const VideoModal = ({ show, handleClose, videoSrc, videoTitle }) => {
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
       <Modal.Header>
-      <Modal.Title>{videoTitle || "Video Sample"}</Modal.Title>
+      <Modal.Title className="video-title">{videoTitle || "Video Sample"}</Modal.Title>
         <div className="video-modal-controls">
           <DropdownButton
             title="📤 Share"
@@ -74,7 +74,7 @@ const VideoModal = ({ show, handleClose, videoSrc, videoTitle }) => {
       </Modal.Header>
       <Modal.Body className="video-modal-body">
         {videoSrc ? (
-          <video id="modal-video" muted controls autoPlay>
+          <video id="modal-video" controls autoPlay>
             <source src={videoSrc} type="video/mp4" />
             Your browser does not support the video tag.
           </video>

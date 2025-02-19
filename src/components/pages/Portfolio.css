@@ -1,0 +1,60 @@
+.portfolio-container {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Carousel Section */
+  .carousel-section .carousel-item img {
+    max-height: 500px;
+    object-fit: cover;
+  }
+  
+  /* Middle Section */
+  .middle-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px 20px;
+  }
+  
+  .text-content {
+    max-width: 50%;
+  }
+  
+  .middle-image {
+    width: 45%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  /* Project Details Section */
+  .projects-section {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  .project-image img {
+    width: 50%;
+    border-radius: 10px;
+  }
+  
+  .project-details {
+    width: 50%;
+    padding-left: 20px;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  /* Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  

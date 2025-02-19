@@ -167,20 +167,7 @@ const Home = () => {
             );
           })}
         </Row>
-{selectedVideo && (
-        <div className="video-overlay">
-          <div className="video-container">
-            <video controls autoPlay>
-              <source src={selectedVideo} type="video/mp4" />
-            </video>
-            <div className="video-controls">
-              <Button onClick={() => document.querySelector("video").requestFullscreen()}>Fullscreen</Button>
-              <Button onClick={() => navigator.clipboard.writeText(selectedVideo)}>Share</Button>
-              <Button onClick={closeVideo} variant="danger">✖</Button>
-            </div>
-          </div>
-        </div>
-      )}
+
           
         </Row>
         {/* Our Services Section end  */}
@@ -189,7 +176,7 @@ const Home = () => {
         {/* Testimonial */}
         <Row>
           <Col>
-            <h2 className="how-work-head">What Our Customers Say?</h2>
+            <h2 className="testimonial-h2">What Our Customers Say?</h2>
           </Col>
         </Row>
         <Reviews/>

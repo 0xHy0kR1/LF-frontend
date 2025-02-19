@@ -6,6 +6,7 @@ import { BsInstagram } from "react-icons/bs";
 import { FaImdb } from "react-icons/fa";
 import { useResizeDetector } from "react-resize-detector";
 import FullWidth from "./FullWidth";
+import "./Reviews.css";
 
 const Height = styled.div`
   position: relative;
@@ -18,36 +19,60 @@ const Box = styled.div`
 `;
 
 const Review = styled.div`
-  width: ${(props) => props.scale * 350}px;
+overflow: hidden;
+  width: ${(props) => props.scale * 400}px;
   display: flex;
-  padding: ${(props) => props.scale * 25}px;
+  flex-direction: column; /* Stack content vertically */
+  padding: ${(props) => props.scale * 20}px;
   background: #fff;
-  border-radius: 4px;
-  box-shadow: 0 7px 20px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 12px; /* More rounded corners */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Softer shadow */
+  align-items: center; /* Center-align content */
+  text-align: center; /* Center-align text */
 `;
 
 const Avatar = styled.div`
   border-radius: 50%;
-  width: ${(props) => props.scale * 58}px;
-  height: ${(props) => props.scale * 58}px;
+  width: ${(props) => props.scale * 80}px; /* Larger avatar */
+  height: ${(props) => props.scale * 80}px;
   overflow: hidden;
-  flex-shrink: 0;
-  margin-right: ${(props) => props.scale * 15}px;
+  margin-bottom: ${(props) => props.scale * 15}px;
 
   img {
     max-width: 100%;
+    height: auto;
   }
 `;
 
 const Content = styled.div`
+  h3 {
+    margin: 0;
+    color: #222;
+    font-family: "Helvetica", sans-serif;
+    font-size: ${(props) => props.scale * 26}px; /* Larger name font */
+    font-weight: bold;
+    margin-bottom: ${(props) => props.scale * 8}px; /* Space below name */
+  }
+
   p {
     margin: 0;
     color: #444;
-    font-family: Helvetica, sans-serif;
-    font-size: ${(props) => props.scale * 14}px;
+    font-family: "Helvetica", sans-serif;
+    font-size: ${(props) => props.scale * 19}px;
     line-height: ${(props) => props.scale * 20}px;
-    font-weight: 100;
-    text-align: left;
+    font-weight: 300; /* Lighter text */
+    margin-bottom: ${(props) => props.scale * 15}px; /* Space below review */
+  }
+
+  .icons {
+    display: flex;
+    gap: ${(props) => props.scale * 10}px; /* Space between icons */
+    justify-content: center; /* Center icons */
+  }
+
+  a {
+    text-decoration: none;
+    display: inline-block;
   }
 `;
 
@@ -68,11 +93,11 @@ const reviewerNames = [
 ];
 
 const reviewsText = [
-  "PlotWriter's AI Co-Pilot Editor and analytics have transformed my scriptwriting. Highly recommended!",
-  "The AI tools are exceptional, making my writing process faster and more enjoyable.",
-  "PlotWriter's analytics and AI suggestions offer fresh perspectives and help improve my scripts.",
-  "The AI Co-Pilot Editor helps overcome writer’s block with creative prompts. A must-have for scriptwriters.",
-  "PlotWriter's pitch deck builder is intuitive and the AI suggestions are spot on. A huge timesaver.",
+  "Kartik Interiors transformed my home with their stunning designs and impeccable craftsmanship. Truly a dream come true!",
+  "Their turnkey solutions made my office renovation seamless. High-quality work, timely delivery, and absolute professionalism!",
+  "From modular kitchens to exquisite wall finishes, Kartik Interiors exceeded my expectations at every step.",
+  "Their expert team handled everything from civil repairs to elegant interior design. My space looks luxurious and well-planned!",
+  "Kartik Interiors’ attention to detail and commitment to quality set them apart. Highly recommended for any interior or exterior project!",
 ];
 
 const reviewerInsta = [
@@ -117,17 +142,18 @@ const Reviews = () => {
                   <img src={portraits[index]} alt={reviewerNames[index]} />
                 </Avatar>
                 <Content scale={scale}>
-                  <div className="personal-info">
-                    <h3 className="text-xl text-black">{reviewerNames[index]}</h3>
-                    <p>{review}</p>
-                    <a href={reviewerInsta[index]} target="_blank" rel="noopener noreferrer">
-                      <BsInstagram size={24} color="black" />
-                    </a>
-                    <a href={reviewerImdb[index]} target="_blank" rel="noopener noreferrer">
-                      <FaImdb size={24} color="black" />
-                    </a>
-                  </div>
-                </Content>
+  <h3 className="review-name">{reviewerNames[index]}</h3>
+  <p className="review-text">{review}</p>
+  <div className="icons">
+    <a href={reviewerInsta[index]} target="_blank" rel="noopener noreferrer">
+      <BsInstagram size={20} color="black" />
+    </a>
+    <a href={reviewerImdb[index]} target="_blank" rel="noopener noreferrer">
+      <FaImdb size={20} color="black" />
+    </a>
+  </div>
+</Content>
+
               </Review>
             </Box>
           ))}
