@@ -5,6 +5,8 @@ const DarkMode = () => {
 
     const setDarkMode = () => {
         document.querySelector("body").setAttribute("data-theme", "dark");
+        console.log(document.querySelector("body").getAttribute("data-theme"));
+
     }
 
     const setLightMode = () => {

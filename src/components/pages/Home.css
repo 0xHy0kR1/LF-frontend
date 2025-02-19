@@ -6,18 +6,26 @@
     margin: 0;
     padding: 0;
 }
+
 /* Home Section */
+[data-theme="dark"] .home-block{
+    --body_background: #0a1823;
+  --body_color: white;
+  --link_color: cyan;
+  transition: background-color var(--transition-duration), color var(--transition-duration);
+}
 .top-box{
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-direction: row;
-    margin: 0;
-    padding: 0; 
+    margin: 0 !important;
+    padding: 0 !important; 
     width: 100%;
-    height: 100%;
+    height: 90vh;
     box-sizing: border-box;
 }
+
 .top-left-text{
     display: flex;
     flex-direction: column;
@@ -58,10 +66,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0; /* Ensure same padding as .top-box */
-    margin: 0;
-    height: 100%;
-    border: 2px solid blue;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 90vh;
     width: 100%;
 }
 
@@ -120,6 +127,12 @@
 }
 
 /* Our Services section */
+.our-services-section{
+    display: flex;
+    flex-direction: column;
+
+}
+
 .Our-services-heading{
     font-weight: bolder;
     font-family: 'Nunito', sans-serif;
@@ -129,10 +142,9 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 0;
-    padding: 0;
-
-    border: 2px solid black;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
 }
 .card-box{
     display: flex;
@@ -205,6 +217,10 @@
 }
 
 /* Testimonial section */
+.testimonial-section{
+    display: flex;
+    flex-direction: column;
+}
 .testimonial-h2{
     font-weight: bolder;
     font-family: 'Nunito', sans-serif;
