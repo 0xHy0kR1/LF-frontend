@@ -16,9 +16,10 @@ body {
   background-color: var(--body_background);
   color: var(--body_color);
   transition: background-color var(--transition-duration), color var(--transition-duration);
+    box-sizing: border-box;
 }
 
-#root, .home-block {
+#root {
   background-color: var(--body_background); /* Sync with body */
   color: var(--body_color);
   transition: background-color var(--transition-duration);

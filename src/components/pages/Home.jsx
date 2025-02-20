@@ -18,6 +18,8 @@ const importAll = (r) => {
   return images;
 };
 
+
+
 // Import all images from the assets folder
 const images = importAll(
   require.context("./../../assets", false, /\.(png|jpe?g|svg)$/)
@@ -49,7 +51,6 @@ const services = Object.keys(serviceVideos).map((key) => ({
 
 const Home = () => {
   // Check if the user is logged in (based on the presence of authToken)
-  const isLoggedIn = !!localStorage.getItem("Authorization");
 
   const containerVariants = {
     hidden: {
@@ -57,13 +58,15 @@ const Home = () => {
     },
     visible: {
       opacity: 1,
-      transition: { delay: 0.5, duration: 0.5 },
+      transition: { delay: 0.5, duration: 1 },
     },
     exit: {
       y: "100vh",
       transition: { ease: "easeInOut" },
     },
   };
+
+  
 
   // Our Services stuff
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -78,14 +81,26 @@ const Home = () => {
     setSelectedVideo(null);
     setSelectedVideoTitle(""); // Reset title when modal closes
   };
-
+  // style={{ width: '100px', height: '100px', backgroundColor: 'blue' }}
+  // animate={{ y: [0, -30, 0] }} // Bouncing animation
+  // transition={{
+  //   duration: 1,
+  //   repeat: Infinity,  // Repeat infinitely for testing
+  //   type: "spring",
+  //   stiffness: 100,
+  //   damping: 20,
+  // }}
   return (
     <motion.div
-      className="home-block"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
+    animate={{ y: [0, -30, 0] }}
+  transition={{
+    repeat: Infinity,
+    duration: 1,
+    type: "spring",
+    stiffness: 100,
+    damping: 20,
+    debug: true,  // Enable debugging to see logs
+  }}
     >
       <Container fluid>
         <Row className="top-box">

@@ -7,13 +7,6 @@
     padding: 0;
 }
 
-/* Home Section */
-[data-theme="dark"] .home-block{
-    --body_background: #0a1823;
-  --body_color: white;
-  --link_color: cyan;
-  transition: background-color var(--transition-duration), color var(--transition-duration);
-}
 .top-box{
     display: flex;
     align-items: center;

@@ -68,10 +68,16 @@ function App() {
 
   return (
     <motion.div
-        initial={{ opacity: 0, y: "-100vh" }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: "100vh" }}
-        transition={{ delay: 0.3, duration:2, type: 'spring'}}
+    initial={{ opacity: 0, y: "-100vh" }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: "100vh" }}
+    transition={{
+      delay: 0.3,
+      duration: 2,
+      type: 'spring',
+      damping: 10,   
+      stiffness: 100 
+    }}
       >
           <NavbarComponent
             lostItems={lostItems}
@@ -86,7 +92,7 @@ function App() {
           <>
             {/* <Alert alert={alert} /> */}
             <ToastContainer position="top-right" autoClose={2000} />
-              <AnimatePresence>
+              <AnimatePresence >
               <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<Home />} />
                 <Route path="/portfolio" element={<Portfolio />} />

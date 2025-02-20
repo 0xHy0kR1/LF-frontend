@@ -174,16 +174,7 @@ function NavbarComponent(props) {
                         Portfolio
                       </Link>
                     </motion.div>
-                    <motion.div className="block-link" variants={navItem}>
-                      <Link
-                        to="/found"
-                        className="nav-link"
-                        onClick={closeBurgerMenu}
-                      >
-                        Found Items
-                      </Link>
-                    </motion.div>
-                    {isLoggedIn ? (
+                    {/* {isLoggedIn ? (
                       <motion.div className="block-link" variants={navItem}>
                         <Link
                           to="/my-listing"
@@ -214,7 +205,7 @@ function NavbarComponent(props) {
                           </Link>
                         </motion.div>
                       </>
-                    )}
+                    )} */}
                   </div>
                 </motion.div>
               </Container>

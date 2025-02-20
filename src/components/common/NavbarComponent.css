@@ -14,6 +14,7 @@
 
 }
 
+
 /* CSS to dynamically change the background and color of burger button */
 .black-bg{
   background: white;
@@ -43,8 +44,24 @@
 .nav-link {
   width: 100%;
   position: relative; /* Ensure the pseudo-element is positioned relative to the link */
-  color: white;
+  color: white !important;
   font-size: 1.3rem;
+}
+
+[data-theme="dark"] .nav-link{
+  text-align: center;
+  font-size: 2rem;
+  font-family: "Nunito", sans-serif;
+  color: white;
+  margin-bottom: 30px;
+}
+
+[data-theme="light"] .nav-link{
+  text-align: center;
+  font-size: 2rem;
+  font-family: "Nunito", sans-serif;
+  color: white;
+  margin-bottom: 30px;
 }
 
 /* Underline effect */
