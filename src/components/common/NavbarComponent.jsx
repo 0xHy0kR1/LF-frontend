@@ -174,38 +174,15 @@ function NavbarComponent(props) {
                         Portfolio
                       </Link>
                     </motion.div>
-                    {/* {isLoggedIn ? (
-                      <motion.div className="block-link" variants={navItem}>
-                        <Link
-                          to="/my-listing"
-                          className="nav-link"
-                          onClick={closeBurgerMenu}
-                        >
-                          My Listing
-                        </Link>
-                      </motion.div>
-                    ) : (
-                      <>
-                        <motion.div className="block-link" variants={navItem}>
-                          <Link
-                            to="/Signup"
-                            className="nav-link"
-                            onClick={closeBurgerMenu}
-                          >
-                            Sign Up
-                          </Link>
-                        </motion.div>
-                        <motion.div className="block-link" variants={navItem}>
-                          <Link
-                            to="/Login"
-                            className="nav-link"
-                            onClick={closeBurgerMenu}
-                          >
-                            Login
-                          </Link>
-                        </motion.div>
-                      </>
-                    )} */}
+                    <motion.div className="block-link" variants={navItem}>
+                      <Link
+                        to="/contact"
+                        className="nav-link"
+                        onClick={closeBurgerMenu}
+                      >
+                        Contact
+                      </Link>
+                    </motion.div>
                   </div>
                 </motion.div>
               </Container>
@@ -242,6 +219,9 @@ function NavbarComponent(props) {
             Logout
           </Button>
         )}
+        <Button variant="danger" className="call-now-button" onClick={() => window.location.href = "tel:+919876543210"}>
+            Call Now
+          </Button>
         </div>
           <DarkMode />
       </div>

@@ -16,6 +16,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { jwtDecode } from "jwt-decode";
 import Footer from "./components/common/Footer";
 import Portfolio from "./components/pages/Portfolio";
+import Contact from "./components/pages/Contact";
 
 function App() {
   const [lostItems, setLostItems] = useState([]);
@@ -96,6 +97,7 @@ function App() {
               <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<Home />} />
                 <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/contact" element={<Contact />} />
               </Routes>
               </AnimatePresence>
           </>

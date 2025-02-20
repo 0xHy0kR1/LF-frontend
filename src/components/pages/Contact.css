@@ -1,0 +1,86 @@
+.contact-block{
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+}
+.contact-container {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 15px;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  /* Carousel Section */
+.carousel-section .carousel-item video {
+    max-height: 500px;
+    object-fit: cover;
+}
+
+/* Middle Section */
+.middle-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px 20px;
+    gap: 30%;
+  }
+
+.contact-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+    font-family: Arial, sans-serif;
+}
+
+.contact-container h2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.contact-container p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-item strong {
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
+}
+
+.contact-item p {
+    font-size: 13px;
+    color: #555;
+    margin: 3px 0 0;
+}
+
+.social-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+
+.contact-icon, .social-icon {
+  font-size: 35px;
+  background: white;  /* Or a light color */
+  color: black; /* Ensure the icon remains visible */
+  cursor: pointer;
+  outline: none;
+}
